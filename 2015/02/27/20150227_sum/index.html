@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>14年下半年遇到的问题总结 | Tankpt&#39;s blog</title>
+  <meta name="google-site-verification" content="r0NFMdCjEJZ3uwd3eOd-5O2i3hV_IuodGEOlYk1BTAA" />
+  <meta name="keywords" content="tankpt blog github gitpage hexo">
+  <meta name="description" content="tankpt's blog Powered by Hexo">
+  <meta name="author" content="tankpt,tinkpt@hotmail.com ">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="稍微整理下一些走过的问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="14年下半年遇到的问题总结">
+<meta property="og:url" content="http://tankpt.github.io/2015/02/27/20150227_sum/index.html">
+<meta property="og:site_name" content="Tankpt's blog">
+<meta property="og:description" content="稍微整理下一些走过的问题">
+<meta property="og:image" content="http://7vzsgl.com1.z0.glb.clouddn.com/blog20150227_sum1.png">
+<meta property="og:image" content="http://7vzsgl.com1.z0.glb.clouddn.com/blog20150227_sum2.png">
+<meta property="og:updated_time" content="2015-10-17T13:29:10.868Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="14年下半年遇到的问题总结">
+<meta name="twitter:description" content="稍微整理下一些走过的问题">
+  
+    <link rel="alternative" href="/atom.xml" title="Tankpt&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Tankpt&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">存档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://tankpt.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-20150227_sum" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/02/27/20150227_sum/" class="article-date">
+  <time datetime="2015-02-27T08:37:16.000Z" itemprop="datePublished">2015-02-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      14年下半年遇到的问题总结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>稍微整理下一些走过的问题</p>
+<a id="more"></a>
+<p>###1. 关于事件的解除绑定###<br>如果业务的需求或者是切换router的时候，需要将一些事件解除原来的绑定，</p>
+<pre><code><span class="keyword">var</span> eventFunc = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>{
+    <span class="comment">/*Event function*/</span>
+}
+$(<span class="string">"#a"</span>).bind(<span class="string">"click"</span>,eventFunc);
+$(<span class="string">"#a"</span>).unbind(<span class="string">"click"</span>,eventFunc);
+</code></pre><p>一般的情况这样即可，但是如果要将eventFunc绑定下一个this的作用域呢,可能会直接的eventFunc.bind(this)，这样来写了，可后来测试了下没有用，其实原因就在于bind函数的问题，在MDN上给bind的解释是</p>
+<pre><code><span class="function"><span class="title">bind</span><span class="params">()</span></span>方法会创建一个新函数,称为绑定函数.当调用这个绑定函数时,绑定函数会以创建它时传入
+ <span class="function"><span class="title">bind</span><span class="params">()</span></span>方法的第一个参数作为 this,传入 <span class="function"><span class="title">bind</span><span class="params">()</span></span> 方法的第二个以及以后的参数加上绑定函数
+ 运行时本身的参数按照顺序作为原函数的参数来调用原函数.
+</code></pre><p>大致的情况就是每次bind都是返回一个新的函数，所以类似eventFunc.bind(this)===eventFunc.bind(this)返回的是false，解决的办法可以声明一个eventFunc2 = eventFunc.bind(this)，然后每次绑定和解除绑定都使用这个</p>
+<p>###2. 关于usagent的正则匹配</p>
+<p>一般做一些简单的在移动端做一些usagent的检测用正则来检测，比如来监测android，会写</p>
+<pre><code>var <span class="built_in">test</span>Android = /(android)/ig;
+<span class="built_in">test</span>Android.test(navigator.userAgent.toLowerCase());
+</code></pre><p>来进行判断,类似这样的头</p>
+<pre><code><span class="string">"mozilla/5.0 (linux; android 4.2.1; en-us; nexus 4 build/jop40d) applewebkit/535.19 (khtml, like gecko) chrome/18.0.1025.166 mobile safari/535.19"</span>
+</code></pre><p>当然会返回true，但是要是在运行一次testAndroid.test(navigator.userAgent.toLowerCase());结果却是<strong>false</strong></p>
+<p>原因是每个正则表达式都有一个 lastIndex 属性，用于记录上一次匹配结束的位置,所以第二次匹配的时候不是从０开始，解决的办法就是testAndroid.lastIndex＝０设置下</p>
+<p><strong>正则有时间必须要好好深入看看</strong></p>
+<p>###3. 关于location.reload() </p>
+<p>window.location.reload()，一直使用的时候，都没注意里面的参数，直到上次在FF下遇到一个类似缓存的问题了，才看了下貌似有这么一段东西</p>
+<pre><code>如果该方法没有规定参数，或者参数是 <span class="literal">false</span>，它就会用 HTTP 头 <span class="keyword">If</span>-Modified-Since 来检测服务器上
+的文档是否已改变。如果文档已改变，reload() 会再次下载该文档。如果文档未改变，则该方法将从缓存
+中装载文档。这与用户单击浏览器的刷新按钮的效果是完全一样的。
+
+如果把该方法的参数设置为 <span class="literal">true</span>，那么无论文档的最后修改日期是什么，它都会绕过缓存，从服务器上重新下
+载该文档。这与用户在单击浏览器的刷新按钮时按住 Shift 健的效果是完全一样。
+</code></pre><p>偶尔间看到一个好玩的<a href="http://www.phpied.com/files/location-location/location-location.html" target="_blank" rel="external">535 ways to reload </a></p>
+<p>###4. 浮动元素并排放兼容问题<br>IE7 下浮动元素并排放置不设置高度会错位,这个原因还未知，但是也是通过这个方法得到了解决</p>
+<p>###5. 关于IE7下的tr<br>IE7下不能设置tr的border。解决的方法及就是用td来设置</p>
+<p>关于这种兼容性的问题，也真是头疼，只能遇到一个解决一个，可惜没有一个银弹，推荐的是一个网站can I use　自行google，里面有很多详细的兼容介绍</p>
+<p>###6. IE下有些margin属性的问题<br>IE下有些margin-left为负数没有用（查看下IEbug里面是否有这样的案例）zoom：1触发下haslayout就好了，貌似网上找到了一个例子可以看看<a href="http://w3help.org/zh-cn/causes/RB1001" target="_blank" rel="external">RB1001</a></p>
+<p>###7. float 左右布局，左右div等高<br>关于实现float 左右布局，左右div等高的方法有，很多种，具体的可以看<a href="http://blog.csdn.net/wodetiankong516/article/details/12010121" target="_blank" rel="external">博文</a></p>
+<p>这个方法的原理是事先通过正内边距来使其拥有足够高的布局控件，然后通过负外边距来使得其的位置不变。通过给父元素溢出隐藏，我们可以隐藏掉事先占据的足够高的空间。由两列实际的内容高度来决定整个父元素的高度，从而实现了等高。 当一列不浮动搭配正内边距加负外边距，父元素溢出隐藏，它的高度跟还是由内在元素来决定。css的精华在于，总容器里面加：overflow:hidden; 多列容器里面加：padding-bottom:32767px; margin-bottom:-32767px;</p>
+<p>###8. 关于遇到一些多选的问题<br>对于一些表单，有很多多选题的时候，有一个比较投机的处理办法，就是使用位运算来进行区分1 2 4 8　类似0001 0010 0100 1000<br>一个不错的办法</p>
+<p>###9. 关于一些情况下的margin<br>如下一段代码</p>
+<pre><code><span class="comment">/*css*/</span>
+.container{<span class="variable">width</span>: <span class="number">700</span>px;<span class="variable">height</span>: <span class="number">500</span>px;<span class="built_in">background</span>-<span class="built_in">color</span>: <span class="built_in">red</span>;}
+<span class="comment">/*html*/</span>
+&lt;div class=<span class="string">"container"</span>&gt;
+    &lt;div class=<span class="string">"body1"</span>&gt;<span class="number">11212</span>&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p>效果如下<img src="http://7vzsgl.com1.z0.glb.clouddn.com/blog20150227_sum1.png" alt="pic1"></p>
+<p>然后我们在给body加点样式</p>
+<pre><code><span class="comment">/*css*/</span>
+<span class="class">.body1</span><span class="rules">{<span class="rule"><span class="attribute">margin-top</span>:<span class="value"><span class="number">50px</span></span></span>;}</span>
+</code></pre><p>效果如下<img src="http://7vzsgl.com1.z0.glb.clouddn.com/blog20150227_sum2.png" alt="pic2"><br>可以发现父元素设置的背景色，还是跟子元素里面的内容紧贴，虽然确实是有margin的效果，但是父元素的背景色却没有将子元素的margin的间隙填满,这个效果出现的原因是<strong>父元素的第一个子元素的上边距margin-top如果碰不到有效的border或者padding,就会不断一层一层的找自己祖先元素</strong><br>个人的理解是发生了margin的重叠，子元素的margin跟父元素的margin-top进行叠加，最后将整体的margin体现在父元素上，对于解决的方案也有几种</p>
+<ol>
+<li>将父元素构建一个bfc</li>
+<li>给父元素加上border-top或者padding-top</li>
+<li>对子元素试用padding-top</li>
+</ol>
+<p>顺便提到一篇文章关于<a href="http://www.hicss.net/do-not-tell-me-you-understand-margin/" target="_blank" rel="external">magin</a>的很不错</p>
+<p>###10. 关于windows.open<br>之前做过一个功能，大致是这样的情况，用于点击一个按钮，然后向服务端发起请求，如果请求成功则打开一个新的页面，记得当时测试的时候，在chrome浏览器中会出现，请求成功但是没有成功打开新的窗口的功能，貌似这个打开的被浏览器拦截。后来将这个异步的请求修改为同步之后就又可以了。这个应该是跟浏览器内部的安全机制有关。<br>具体可以看看这个文章<a href="http://www.520ued.com/article/5417ef368d31c11e3b0003ff" target="_blank" rel="external">window.open为何会被浏览器拦截</a></p>
+<p>###其他</p>
+<ol>
+<li>如果在页面做一个设备的识别然后进行调转。如果页面中 有加载图片的过程，可能会出现的是图片还没加载完毕，然后就进行链接的跳转的，这样的结果是看到的图片还没加载完毕就会被打断，然后看不到图片</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+       
+      <a data-url="http://tankpt.github.io/2015/02/27/20150227_sum/" data-id="cifv8tbvr000ka2jgosky4sn3" class="article-share-link"></a>
+        <div class="bdsharebuttonbox" style="float:right">
+          <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+          <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+          <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+          <a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a>
+        </div>
+        <script>
+          window._bd_share_config={
+            "common":{
+              "bdSnsKey":{},
+              "bdText":"",
+              "bdMini":"1",
+              "bdMiniList":["tsina","weixin","douban","sqq","youdao","mail","fbook","twi"],
+              "bdPic":"",
+              "bdStyle":"0",
+              "bdSize":"16"
+            },
+            "share":{}
+          };
+          with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+
+        </script>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+
+    </footer>
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/04/03/20150403_summary/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          关于前端一些想法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/02/03/20150203_viewport/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">关于移动端(一)viewport</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="post-20150227_sum" data-title="14年下半年遇到的问题总结" data-url="/2015/02/27/20150227_sum/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"tankpt"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+    </script>
+  <!-- 多说公共JS代码 end -->
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/">mobile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端资源/">前端资源</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/总结/">总结</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感悟/">感悟</a><span class="tag-list-count">9</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/css/" style="font-size: 13.33px;">css</a> <a href="/tags/js/" style="font-size: 16.67px;">js</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/前端资源/" style="font-size: 10px;">前端资源</a> <a href="/tags/性能/" style="font-size: 10px;">性能</a> <a href="/tags/总结/" style="font-size: 20px;">总结</a> <a href="/tags/感悟/" style="font-size: 20px;">感悟</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">九月 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/10/17/20151017-sum/">新的起点</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/13/20150713-performance/">前端性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/25/20150625_graduate/">致我将要逝去的学生时代</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/09/20150609_sum/">好多坑</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/07/20150607_summary/">写在实习满三个月</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+  <div class="widget-wrap">
+  	<h3 class="widget-title">我的豆瓣FM秀</h3>
+  	<div style="margin-left:15px;"><script src="http://img3.douban.com/f/shire/b5b388ff620cf7006188492cc075a423519ba257/js/radiowidget.js?doubanid=46888103&maxresults=3"></script>
+  	</div>
+  </div>
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Tankpt<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">存档</a>
+  
+</nav>
+    
+
+<script src="//upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.3.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+  </div>
+</body>
+</html>

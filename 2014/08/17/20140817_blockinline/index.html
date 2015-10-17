@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>有关视觉格式化 | Tankpt&#39;s blog</title>
+  <meta name="google-site-verification" content="r0NFMdCjEJZ3uwd3eOd-5O2i3hV_IuodGEOlYk1BTAA" />
+  <meta name="keywords" content="tankpt blog github gitpage hexo">
+  <meta name="description" content="tankpt's blog Powered by Hexo">
+  <meta name="author" content="tankpt,tinkpt@hotmail.com ">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="有关格式化的一些笔记，主要来自于css权威指南，还有一些是自己的理解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="有关视觉格式化">
+<meta property="og:url" content="http://tankpt.github.io/2014/08/17/20140817_blockinline/index.html">
+<meta property="og:site_name" content="Tankpt's blog">
+<meta property="og:description" content="有关格式化的一些笔记，主要来自于css权威指南，还有一些是自己的理解">
+<meta property="og:updated_time" content="2015-10-17T13:29:10.868Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="有关视觉格式化">
+<meta name="twitter:description" content="有关格式化的一些笔记，主要来自于css权威指南，还有一些是自己的理解">
+  
+    <link rel="alternative" href="/atom.xml" title="Tankpt&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Tankpt&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">存档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://tankpt.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-20140817_blockinline" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/08/17/20140817_blockinline/" class="article-date">
+  <time datetime="2014-08-17T03:14:33.000Z" itemprop="datePublished">2014-08-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      有关视觉格式化
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>有关格式化的一些笔记，主要来自于css权威指南，还有一些是自己的理解</p>
+<a id="more"></a>
+<p>##一、基本信息##</p>
+<ol>
+<li>非替换元素：元素的内容包含在文档中（比如&lt; p &gt;&lt; /p &gt;内容就在文档的内部）</li>
+<li>替换元素：用作其他内容占位符的一个元素（典型的有img  &lt; input &gt;）</li>
+<li>块级元素：元素在正常流中会在其边框之前和之后生成换行[display:block]</li>
+<li>行内元素：元素在之前后之后不会生生换行[display:inline]</li>
+<li>包含块：一般由最近的块级祖先框、表单元格或者是行内快祖先框的内容边界构成</li>
+</ol>
+<p>##二、行内元素##</p>
+<p>###2.1 基本信息###</p>
+<ol>
+<li>内容区、行内框、行框　（根据是否为替换元素分别有不同的情况）</li>
+</ol>
+<p>###2.2 非替换元素的行内格式化###</p>
+<p>####2.2.1 基本信息#####</p>
+<ol>
+<li>内容区：可以简单理解为就是由文本框内部的字符所构成的一个框，差不多就是字符框的意思</li>
+<li>行间距：由font-size和line-height来决定，有两个数值的差值分别应用到内容框的上下部分</li>
+<li>行内框：通过改变line-height来改变行间距来进行变化，他的行内框的大小等于line-height的数值</li>
+<li>行框：包含该行中出现的行内框的最高点和最底点的最小框</li>
+</ol>
+<p>####2.2.2 构建过程####</p>
+<p>step1:首先得到line-height数值（通过继承或者是本身计算，如是百分比之类的则是根据本身的font-size进行计算；如果是继承父元素的em之类的单位，则以父元素font-size进行计算，可以通过继承line-height:1这样的倍数）</p>
+<p>step2:构建行内框，计算方式(line-height - font-size)/2分别应用到内容框的上下两侧，注意这个数值可能为负，所以会出现如下两种情况<br>－－－－－－      &emsp;       －－－－－－<br>行－－－－－      &emsp;       内－－－－<br>&emsp;内容区&emsp;&emsp; &emsp;&emsp;行高<br>高－－－－－      &emsp;       容－－－－<br>－－－－－－      &emsp;       －－－－－－<br>行内框决定了行框的的排步</p>
+<p>step3:vertical-align定义行内元素的基线相对于钙元素所在行的基线的垂直方式，会影响行内框的顶部或者底部的偏移像素；基线不是汉字下断沿而是英文字母的下端沿。<br>        －－－顶线－－－<br>        －－－中线－－－<br>        －－－基线－－－<br>        －－－底线－－－<br>    其中的属性vertical-align:bottom是将元素的行内框的底端与行框的底端对齐</p>
+<p>####2.2.3　其他####</p>
+<ol>
+<li>行内元素的边框边界由font-size而不是line-height决定，边框由内容决定</li>
+<li>内边距、外边距、边框不会影响行高(当然是垂直的方向，对于左右两侧的方向则是还是会有影响的)</li>
+<li>行内元素的背景应用于内容区以及所有内边距，行内元素的边框要包围内容区及所有内边距和边框；所以行内元素内边距会影响到该元素边框所包围的区域，但是不会影响到行内框的高度</li>
+</ol>
+<p>###2.3 替换元素的行内格式化###</p>
+<p>####2.3.1 基本信息####</p>
+<ol>
+<li>内容区：元素周围固有的高度再加上可能有的外边距、边框、内边距</li>
+<li>行间距：不应用到非替换元素</li>
+<li>行内框：就是内容区的高度</li>
+<li>行框：同前面提到的行框一样padding: 14px;</li>
+</ol>
+<p>###2.3.2 细节###</p>
+<ol>
+<li>由于内容区是由内外边＋边框决定，所以都会影响到行框的形成</li>
+<li>对于替换元素的line-height虽然对行框的形成没有多少影响，但是这个数值在后续如果进行设置vertical-aligin会有影响，因为vertical-align是由line-height进行计算的</li>
+<li>默认的行内替换元素位于基线上</li>
+</ol>
+<p>##三、块级元素##</p>
+<p>###3.1 水平格式化###</p>
+<ol>
+<li>规则：margin[left+right] + border[left+right] +padding[left+right] +width应为父元素的内容区</li>
+<li>使用auto（只有俩margin和width可以设定）<br>(1)三个都为非auto，当格式化属性过分受限的时候，调整margin-right进行适应；(2)margin为非auto，width为auto，调整width来满足前面的规则；<br>(3)某一个外边距以及width为auto，则设置auto的那个外边距调整为0；<br>(4)全为auto，则宽尽可能宽<br>(5)俩margin auto，则居中</li>
+<li>负外边距<br>总体还是需要满足规则，若水平属性过分受限，重置外边距</li>
+<li>替换元素<br>不同的一点，若width为auto，则元素的宽度则是内容的固有宽度</li>
+</ol>
+<p>###3.2 垂直格式化###</p>
+<p>padding要是一个非负数,对于内容需要的高度大于所设定的高度的时候，由用户代理的具体行为将取决于overflow的属性的设定</p>
+<ol>
+<li>垂直属性<br>(1)对于正常流中的一个块元素的margin-top或者是margin-bottom设置为auto，它会自动计算为0，所以达不到居住的效果，（但对于那些定位的元素来说，上下边距为auto的时候，它所处理的方式不同）<br>(2)百分数高度：对于height的百分数是相对于父元素的height进行计算的，而margin-top和margin-bottom则是按照父元素的width进行计算的。这点需要注意！！</li>
+<li>auto高度<br>(1).若正常流元素设置为height：auto那么显示时高度将恰好足以包含其内联内容包括文本的行盒<br>(2).若正常流元素设置为height：auto，而且有块级子元素<br>&emsp;a.若子元素有上下外边框或上下内边距，则告诉是从其最高子元素的上外边距边界到最低子元素的下外边距；<br>&emsp;b.否则，高度则是从子元素的最高外边框边界到最低子元素的外边框距离，此时会出现子元素的外边距超出包含这些子元素的元素</li>
+<li>合并垂直外边距<br>只应用于外边距的合并，如果元素有内边距或者是边框，那么就不会发生合并的现象</li>
+<li>负外边距<br>(1).若垂直外边距都设置为负数，那么浏览器会取俩外边距绝对值的最大值<br>(2).若一个正外边距与一个负外边距合并，会从正外边距减去这个负外边距的绝对值<br>(3).如果有多个正或者负的边距叠加（大于两个的），此时应该先取出其中最大的一个正的和负的进行计算，而不是单纯的将几个进行叠加<br>(4).对于那些由于负外边距而导致元素重叠的情况下，如果有背景色，那么浏览器会按照这些元素在文档中先后出现的顺序进行显示</li>
+</ol>
+<p>参考资料：《css权威指南》</p>
+
+      
+    </div>
+    <footer class="article-footer">
+       
+      <a data-url="http://tankpt.github.io/2014/08/17/20140817_blockinline/" data-id="cifv8tbwa0016a2jg5ndumvy2" class="article-share-link"></a>
+        <div class="bdsharebuttonbox" style="float:right">
+          <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+          <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+          <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+          <a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a>
+        </div>
+        <script>
+          window._bd_share_config={
+            "common":{
+              "bdSnsKey":{},
+              "bdText":"",
+              "bdMini":"1",
+              "bdMiniList":["tsina","weixin","douban","sqq","youdao","mail","fbook","twi"],
+              "bdPic":"",
+              "bdStyle":"0",
+              "bdSize":"16"
+            },
+            "share":{}
+          };
+          with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+
+        </script>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+
+    </footer>
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/08/26/20140826_summary/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          坑整理第二辑
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/07/16/20140716_metaviewport/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">关于meta中viewportt</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="post-20140817_blockinline" data-title="有关视觉格式化" data-url="/2014/08/17/20140817_blockinline/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"tankpt"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+    </script>
+  <!-- 多说公共JS代码 end -->
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/">mobile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端资源/">前端资源</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/总结/">总结</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感悟/">感悟</a><span class="tag-list-count">9</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/css/" style="font-size: 13.33px;">css</a> <a href="/tags/js/" style="font-size: 16.67px;">js</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/前端资源/" style="font-size: 10px;">前端资源</a> <a href="/tags/性能/" style="font-size: 10px;">性能</a> <a href="/tags/总结/" style="font-size: 20px;">总结</a> <a href="/tags/感悟/" style="font-size: 20px;">感悟</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">九月 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/10/17/20151017-sum/">新的起点</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/13/20150713-performance/">前端性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/25/20150625_graduate/">致我将要逝去的学生时代</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/09/20150609_sum/">好多坑</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/07/20150607_summary/">写在实习满三个月</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+  <div class="widget-wrap">
+  	<h3 class="widget-title">我的豆瓣FM秀</h3>
+  	<div style="margin-left:15px;"><script src="http://img3.douban.com/f/shire/b5b388ff620cf7006188492cc075a423519ba257/js/radiowidget.js?doubanid=46888103&maxresults=3"></script>
+  	</div>
+  </div>
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Tankpt<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">存档</a>
+  
+</nav>
+    
+
+<script src="//upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.3.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+  </div>
+</body>
+</html>

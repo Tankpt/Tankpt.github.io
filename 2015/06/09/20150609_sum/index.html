@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>好多坑 | Tankpt&#39;s blog</title>
+  <meta name="google-site-verification" content="r0NFMdCjEJZ3uwd3eOd-5O2i3hV_IuodGEOlYk1BTAA" />
+  <meta name="keywords" content="tankpt blog github gitpage hexo">
+  <meta name="description" content="tankpt's blog Powered by Hexo">
+  <meta name="author" content="tankpt,tinkpt@hotmail.com ">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="移动端走到的几个吭">
+<meta property="og:type" content="article">
+<meta property="og:title" content="好多坑">
+<meta property="og:url" content="http://tankpt.github.io/2015/06/09/20150609_sum/index.html">
+<meta property="og:site_name" content="Tankpt's blog">
+<meta property="og:description" content="移动端走到的几个吭">
+<meta property="og:updated_time" content="2015-10-17T13:29:10.868Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="好多坑">
+<meta name="twitter:description" content="移动端走到的几个吭">
+  
+    <link rel="alternative" href="/atom.xml" title="Tankpt&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Tankpt&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">存档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://tankpt.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-20150609_sum" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/06/09/20150609_sum/" class="article-date">
+  <time datetime="2015-06-09T02:12:16.000Z" itemprop="datePublished">2015-06-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      好多坑
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>移动端走到的几个吭</p>
+<a id="more"></a>
+<h3 id="1-_button">1. button</h3><p>对于botton在IOS上会有一个margin。需要进行重置</p>
+<h3 id="2-_滚动到底部">2. 滚动到底部</h3><p>之前做的一个插件，当滚动到底部的时候检测然后进行新的内容的加载，但是经常会出现失效的情况（之所以这样是因为考虑到性能，窗口大小的获取之获取了一次，然后缓存起来），后来看了下，同样的一个页面，窗口的大小，从页面一开始进来的大小和在本页进行刷新，所获取的窗口大小是不一致的，解决方案有两种</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1. &#23545;&#20110;&#33719;&#21462;&#31383;&#21475;&#22823;&#23567;&#65292;&#27599;&#27425;&#26816;&#27979;&#30340;&#26102;&#20505;&#36827;&#34892;&#19968;&#27425;&#35745;&#31639;&#65292;&#36825;&#26679;&#23601;&#19981;&#10;&#20250;&#26377;&#35745;&#31639;&#22833;&#35823;&#30340;&#24773;&#20917;&#10;2. &#31532;&#19968;&#27425;&#33719;&#21462;&#30340;&#26102;&#20505;&#35762;&#25972;&#20307;&#30340;&#20195;&#30721;&#24310;&#36831;&#22788;&#29702;,setTimeout(f,0)&#10;&#21363;&#21487;</span><br></pre></td></tr></table></figure>
+<h3 id="3-ios滚动">3.ios滚动</h3><p>出现了一个比较神奇的问题，就是当用户按住屏幕进行滚动后，比如出发了加载更多的一个loading动画，然后此时用手按住屏幕，会发现动画暂停了</p>
+<h3 id="4-input输入框">4.input输入框</h3><p>设置input类型为number的时候，当输入的number的类型不合法的时候，input会自动过滤为空</p>
+<h3 id="5-ios宽度百分比问题">5.ios宽度百分比问题</h3><p>在5c上，具体的版本号忘记了，比较老的也，对宽度的处理有点异常，对宽度比如算出来是45.8.都会舍成45，很容易造成布局的乱</p>
+<h3 id="6-scroll事件">6.scroll事件</h3><p>DOM元素中塞内容的时候会触发一次scroll。应该是节点变多之后的效果，这个也可以理解</p>
+<h3 id="7-ios点击闪烁">7.ios点击闪烁</h3><p>ios上点击一个区域会出现闪烁的问题，可以对那个闪烁的元素加一个<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-webkit-tap-highlight-color: rgba(0,0,0,0);</span><br></pre></td></tr></table></figure></p>
+<h3 id="8-input_placehold问题">8.input placehold问题</h3><p>input placehold在老的安卓机子上面。计算原来设置了text-align:right也不会居中，有一个办法使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">::-webkit-input-placeholder&#65371;text-aligh:right&#65373;</span><br></pre></td></tr></table></figure></p>
+<p>可以，但是再旧点的版本就不行了,不过还可以使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">::-webkit-input-placeholder &#123;direction: rtl;&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="9-刷新字体大小变小">9.刷新字体大小变小</h3><p>有些手机上（小米+魅族）一开始进入的时候正常，但是进行一些操作之后会出现字体的变小，貌似都是那些body下的父元素没有设置过字体大小的元素会出现，解决的办法就是强制给一个字体大小</p>
+<h3 id="10-js关闭键盘">10.js关闭键盘</h3><p>对于一些场景需要用js来关闭那些唤起的键盘。可以通过document.activeElement.blur();来将键盘关闭</p>
+<h3 id="11-缩放问题">11.缩放问题</h3><p>对于一些页面在meta中设置了user-scalable=no的页面，发现在oppo上meta没有用。可以继续缩放，这个奇葩问题暂无解决方案</p>
+<h3 id="12-浮动的处理">12.浮动的处理</h3><p>左边是浮动，右边一个bfc的时候不需要加margin-left。在一些手机上会以浮动元素的右侧开始计算。会容易有益处，比如华为安卓</p>
+<p>##总结</p>
+<ol>
+<li>经常做一些内嵌页面的时候，会受到客户端的影响，有时候遇到的一些奇葩问题也许不是前端的，是客户端的，找到果断报</li>
+<li>感觉最近做的俩移动的页面，其实难度并不大，但是兼容的问题真是好折腾，基本上整体的时间算下来，应该是后期测试联调改bug的时间大于前期的开发时间，而且一旦涉及到一些自己引组建资源问题的时候，需要找对应的开发也比较耗费时间</li>
+<li><p>移动端有时候的联调，真是不方便，虽然有各种各样的联调方式，但是总会跟客户端的浏览器有点差异，打个log也相当的蛋疼，看到一个native开发的也在debug版本中顶部加了一个log的小窗口，所以自己也做了一个雷同的，还有比较大的优化空间，先贴代码</p>
+</li>
+<li><p>做好工程化还是很有必要的，其实也就是grunt这类的打包，前期比较折腾比较累，但是一旦配置好之后，后期就是爽歪歪的享受，大大节省开发的时间</p>
+</li>
+<li>整体项目的分层结构设计还是比较考验人的，一般不太会一蹴而就的，都是需要开发了多次之后慢慢修改，然后磨合调整修改到一个比较舒服的状态，对于一些旧的代码，千万不要心软偷懒放任不管，要是一开始就放任了，第二次第三次就更加不会去处理了，最夸张的情况下，就是这个页面经历了多个人的手，最后每个人都不敢在前人的代码上进行修改，一些老旧的代码越叠越多，还是很容易出问题的，到时候排查也是一个超级累的过程</li>
+<li>关于一些组件的抽取，感觉这个力度还是很难把控的，松的耦合度可以让这个组件可以有更大的普适度去黏合各种场景，但是相应的代价就是可能这个组件里面本身完成事情就不多，很多的工作需要附加在使用这个组件的场景里去完成。 而其实，作为开发者，最喜欢的就是写完一个组件之后，我在我的应用场景里面仅仅做一个最简单的调用就可以完成这个功能那是最爽的了，不过一般这样的组件相应的就会有比较强的耦合性，这个也是比较纠结的一件事情</li>
+<li><p>对于在客户端遇到需要处理一些多页面链路的问题，比如A-B—C这样的链路，但是从C返回B的过程中，需要将从C一些信息带回到B，在做的时候考虑想到了三个方案</p>
+<pre><code>(<span class="number">1</span>) url里加参数
+(<span class="number">2</span>) postMessage
+(<span class="number">3</span>) 本地存储
+</code></pre><p> A. 对于url里加参数，有点恶心，不好处理A-B中url里面也有参数的问题，虽然可以通过命名不一样的参数名字来绕开，但是感觉还是太奇怪了，而且这样的链路页面会跳的时候，感觉最好使用history.back()来处理（对于A—B-C，正常的逻辑，回到B页面后点击回退到A，要是用open方式打开用户手点到回退按钮，就会回到C），这样的情况下感觉就不是很合适了<br> B. postMessage，在浏览器端还是不错的支持度，但是在移动端上，兼容性并不能得到保证，为了求稳还是没有使用<br> C. 本地存储，这是最终采用的方案，使用的过程中唯一需要注意的就是要缕清楚不同页面直接跳转过程中，何时读取存储内容的时机，以及清除存储内容的时机，而且有一个不好地方就是，本地存储会一直有，要是A-B—C这样的链路走，这是正常的流程，对于一些直接跳转到B页面的这样的异常流程需要多多注意</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+       
+      <a data-url="http://tankpt.github.io/2015/06/09/20150609_sum/" data-id="cifv8tbvd000ca2jgdiep312c" class="article-share-link"></a>
+        <div class="bdsharebuttonbox" style="float:right">
+          <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+          <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+          <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+          <a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a>
+        </div>
+        <script>
+          window._bd_share_config={
+            "common":{
+              "bdSnsKey":{},
+              "bdText":"",
+              "bdMini":"1",
+              "bdMiniList":["tsina","weixin","douban","sqq","youdao","mail","fbook","twi"],
+              "bdPic":"",
+              "bdStyle":"0",
+              "bdSize":"16"
+            },
+            "share":{}
+          };
+          with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+
+        </script>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+
+    </footer>
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/06/25/20150625_graduate/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          致我将要逝去的学生时代
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/06/07/20150607_summary/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">写在实习满三个月</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="post-20150609_sum" data-title="好多坑" data-url="/2015/06/09/20150609_sum/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"tankpt"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+    </script>
+  <!-- 多说公共JS代码 end -->
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/">mobile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端资源/">前端资源</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/总结/">总结</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感悟/">感悟</a><span class="tag-list-count">9</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/css/" style="font-size: 13.33px;">css</a> <a href="/tags/js/" style="font-size: 16.67px;">js</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/前端资源/" style="font-size: 10px;">前端资源</a> <a href="/tags/性能/" style="font-size: 10px;">性能</a> <a href="/tags/总结/" style="font-size: 20px;">总结</a> <a href="/tags/感悟/" style="font-size: 20px;">感悟</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">九月 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/10/17/20151017-sum/">新的起点</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/13/20150713-performance/">前端性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/25/20150625_graduate/">致我将要逝去的学生时代</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/09/20150609_sum/">好多坑</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/07/20150607_summary/">写在实习满三个月</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+  <div class="widget-wrap">
+  	<h3 class="widget-title">我的豆瓣FM秀</h3>
+  	<div style="margin-left:15px;"><script src="http://img3.douban.com/f/shire/b5b388ff620cf7006188492cc075a423519ba257/js/radiowidget.js?doubanid=46888103&maxresults=3"></script>
+  	</div>
+  </div>
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Tankpt<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">存档</a>
+  
+</nav>
+    
+
+<script src="//upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.3.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+  </div>
+</body>
+</html>

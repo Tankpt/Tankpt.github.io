@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>坑整理第二辑 | Tankpt&#39;s blog</title>
+  <meta name="google-site-verification" content="r0NFMdCjEJZ3uwd3eOd-5O2i3hV_IuodGEOlYk1BTAA" />
+  <meta name="keywords" content="tankpt blog github gitpage hexo">
+  <meta name="description" content="tankpt's blog Powered by Hexo">
+  <meta name="author" content="tankpt,tinkpt@hotmail.com ">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近估计有比较多的面试，所以赶紧整理了下第二个阶段里遇到的问题，比较有意思的是一个css的解析问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="坑整理第二辑">
+<meta property="og:url" content="http://tankpt.github.io/2014/08/26/20140826_summary/index.html">
+<meta property="og:site_name" content="Tankpt's blog">
+<meta property="og:description" content="最近估计有比较多的面试，所以赶紧整理了下第二个阶段里遇到的问题，比较有意思的是一个css的解析问题">
+<meta property="og:image" content="http://img2.ph.126.net/7fdPCug5oSjQCxtXr2Phgg==/2216052491743844216.png">
+<meta property="og:image" content="http://img2.ph.126.net/jnPKefx2y1YthJJxblanRw==/6619067695793200250.png">
+<meta property="og:image" content="http://img1.ph.126.net/ko6U2kfwtoajoUCVpXREmQ==/2288673035735331040.png">
+<meta property="og:image" content="http://note.youdao.com/yws/res/2070/588D4C55C1D44CEDB1B58F2B97C42D1F">
+<meta property="og:updated_time" content="2015-10-17T13:29:10.868Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="坑整理第二辑">
+<meta name="twitter:description" content="最近估计有比较多的面试，所以赶紧整理了下第二个阶段里遇到的问题，比较有意思的是一个css的解析问题">
+  
+    <link rel="alternative" href="/atom.xml" title="Tankpt&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Tankpt&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">存档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://tankpt.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-20140826_summary" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/08/26/20140826_summary/" class="article-date">
+  <time datetime="2014-08-25T16:13:34.000Z" itemprop="datePublished">2014-08-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      坑整理第二辑
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近估计有比较多的面试，所以赶紧整理了下第二个阶段里遇到的问题，比较有意思的是一个css的解析问题</p>
+<a id="more"></a>
+<p>##1. 关于line-height##<br>之前在做一个专题的时候遇到了一个很奇怪的现象，大致就是类似如下的代码</p>
+<pre><code><span class="tag">&lt;<span class="title">span</span> <span class="attribute">style</span>=<span class="value">"font-size: 29px;line-height: 32px;"</span>&gt;</span>A<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+<span class="tag">&lt;<span class="title">span</span> <span class="attribute">style</span>=<span class="value">"font-size: 12px"</span>&gt;</span>B<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+</code></pre><p>如果给第二个span加一个line-height为29的话会使这个块下面的元素要向下一点；这样表达起来貌似有点生硬；<br>直接说原因吧，也是突然中意会到的，看css权威指南的时候，看到了行框生成的原理；里面有一点就是每一行的行内元素在默认情况是将自己的基线和整行元素的基线对齐；上面的两个元素他们没有设置vertical-align属性，所以都是基线在一条线上，他们的字体大小又不同，这个时候设置了行高都为32px，会使得两个元素形成行内框的底线不在一条线上，很明显字体小的元素的行内框的底线要更低，而整个行框的形成是取该行中所有元素的最低和最高进行决定的，这也导致了设置了第二个的line-height后，底线不是想象中第一个的底线，而是更低，所以也造成了最后的下榻的原因（其实线上有个例子的－－但是不好意思放出来）</p>
+<p>更多有关于视觉格式化的请看上一篇博文</p>
+<p>##2. CSS解析的顺序##<br>css选择器的效率。！！ div.nav &gt; ul li a[title]<br>上面的实例来说，浏览器首先会尝试在你的HTML标签中寻找“a[title]”元素，接着在匹配“li和ul”，最后在去匹配“div.nav”。这就是前成所主的“选择器从右到左的原则”。</p>
+<p>##3. new Date()##<br>这个算是一个严重的问题了，以前从来没注意过这个问题，那天他们提到了我才去看了下，当你在new Date(“2013-12-12”)这样的时候，后面的小时分秒没给定的时候存在一个比较大的危机，他会根据你所在的时区自动添加那个跟零时区相差的时候，所以我这样new的时候，实际上是生成了一个2013-12-12 08:00这样一个时间，不信你可以试试，所以问题就来了，当你对一个东西需要精确到小时的时候这样就要出乱子了，那天后台的人员告诉我，因为我的这个bug导致了部门亏损了68块钱。。。真是好忧伤。<br>解决方法</p>
+<pre><code><span class="number">1.</span>当然是<span class="keyword">new</span>的时候默默注意，把后面的带上就算没有，字符串给拼接一个好了
+<span class="number">2.</span>getTimezoneOffset()这个方法会返回本地时间与格林威治标准时间 (GMT) 的分钟差。
+</code></pre><p>##3. 关于element.style.**##<br>通过这种方式获取的css都是那些内联在元素里的样式，而那些通过css顶部声明的则不会通过这个方法来过去到，貌似刚搜索了下，关于获取元素css样式的问题，要是好好研究的话可以单独写一个文章整理，附上刚随手搜到的<a href="http://www.zhangxinxu.com/wordpress/2012/05/getcomputedstyle-js-getpropertyvalue-currentstyle/" target="_blank" rel="external">文章</a></p>
+<p>##4. IE7下的绝对定位的问题##<br>IE7下面要对绝对定位的元素定位时要指明两个方向，不能只制定一个方向，如果在设置了overflow的时候。会出现下面的元素不是从上往下排还是掉到右侧的情况（就是现在布局没有跳出文档流，会被之前排好的元素的位置影响）<br>解决的方法就是好习惯，指明两个方向</p>
+<p>##5. 关于box-shadw##<br>对于boxshadw这类属性如果父元素设置了overflow:hidden的属性，而子元素刚好又在边界上面，会出现这样阴影的效果属于父元素之外。然后就会被隐藏掉！！！</p>
+<p>##6. 比较大小的问题##<br>一般的情况获取的数据也好信息也好，很多都会是字符串的信息，然后这就会带来一个问题，一些数字的比较，虽然说js里面是会进行一些隐性的强制转化的形式，但是遇到这种问题9 compare 19，按照正常的话当然是19大，但是按照字符串的比较的话，还是９大，因为第一个字符大<br>解决方式</p>
+<pre><code><span class="number">1.</span>进行比较的时候，用Number进行强制转换
+<span class="number">2.</span> 用parseint转化
+</code></pre><p>注：两者还是有一些区别的，具体可以看<a href="http://thinkwa.blog.163.com/blog/static/212377080200972610460356/" target="_blank" rel="external">点击这里</a></p>
+<p>##7. 关于页面中的事件##<br>如果用了一些模块化的方法来进行管理，（比如nej），当你模块进行切换的时候，他之前对一个dom节点绑定的事件是不会回收的，然后当你再去调用这个模块的时候，他又会对这个节点绑定一次事件，然后就会发现，比如你点击一个按钮，他会触发多次一模一样的事件，所以要做好对事件的回收的处理</p>
+<p>特别是如果要向服务器发一些请求的时候，这样会造成发很多次的请求，对性能会有影响（已掉两次坑）</p>
+<p>##8. 关于data-id这样的属性##<br>一直以来在使用的时候，都是以node.dataset.id的形式来取值，但是在一次的测试中，发现这个属性还有兼容性问题，具体的兼容性可以看<br><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLElement.dataset" target="_blank" rel="external">msdn</a>以及<a href="http://caniuse.com/#search=dataset" target="_blank" rel="external">can I use __</a>的介绍</p>
+<p>在一般的情况下可以使用node.dataset.id或者是node.getAttribute(‘data-id’)，进测试在IE8下还可以这么取ndoe[“data-id”]，但是IE9就不行了</p>
+<p>##9. 关于ie6、ie7折行问题(li用了float)##<br>之前做的一个有关于支付页面里的东西，里面是很多银行支付方式的列举，前几天被报了bug，一开始还以为是IE在float的情况在的元素的计算方式有点偏差然后导致的元素折行的情况出现，后来检查了貌似不是这个元素，然后网上找了下资料。</p>
+<p>大致的情况是这样的：好多几个元素用li包裹，然后左浮动，按照正常的布局他会一直从左开始排版，要是不够了就会从下一行继续排版，然后一个在第一行最末尾的元素竟然自己出现的折叠，我也很不知其原因</p>
+<p>解决方法：<br>1）如果文本中没有空格，用word-break属性的keep-all参数可解决这个问题，<br>2）如果文本中有空格，用white-space属性的nowrap 参数可解决问题。<br>具体可以参考这个<a href="http://hi.baidu.com/swallow070705/item/638415b5b7e5c477254b0905" target="_blank" rel="external">博文</a></p>
+<p>##10. 关于window.open##<br>经过测试，貌似这个函数是异步执行的</p>
+<pre><code>console.<span class="literal">log</span>(<span class="string">"before open"</span>);
+<span class="keyword">window</span>.<span class="keyword">open</span>(url,<span class="string">"_self"</span>);
+console.<span class="literal">log</span>(<span class="string">"a111"</span>)；
+</code></pre><p>可以通过断点的方式调试，可以看到在浏览器的链接打开之前会先运行后面的语句，初步的推断，window.open是向那个链接发起了一个请求，然后待请求完毕之后再进行处理，所以有时候在一些函数判断的时候，要注意这点，可以直接加个return;来跳出函数，而且有个更加重要的问题就是如下</p>
+<pre><code><span class="keyword">window</span>.<span class="keyword">open</span>(url,<span class="string">"_self"</span>);
+<span class="keyword">window</span>.<span class="keyword">open</span>(url2,<span class="string">"_self"</span>);
+console.<span class="literal">log</span>(<span class="string">"a111"</span>)；
+</code></pre><p>如果是立即执行的话那么第二个的url2应该就会不打开了，但是实际上的结果是浏览器跑的是第二个语句，由于它的“异步”(有待证明),第二个直接覆盖了前面的执行结果，所以这里也要小心</p>
+<p>##11. 关于在IE8以及一下出现图片链接不能点击的问题##<br>问题是这样的，要实现一个卡片一样的块，点击跳转到一个新的页面，当然很自然的试用了如下的代码,图片加一个hover上去方法的效果，所以会在图片外层加一个div限制显示的大小，overflow:hidden这样的属性</p>
+<pre><code><span class="tag">&lt;a&gt;</span>
+    <span class="tag">&lt;div class="j-img&gt;</span><span class="tag">&lt;img src=""&gt;</span><span class="tag">&lt;/div&gt;</span>
+    <span class="tag">&lt;div class="j-title"&gt;</span><span class="comment">#####&lt;/div&gt;</span>
+<span class="tag">&lt;/a&gt;</span>
+</code></pre><p>现在的一个问题就是这样的写法在IE8以及一下的浏览器中，点击图片不会跳转，但是如果图片跟卡片之间有空隙，点击空隙还是可以跳转，这就造成了一种假象，图片是置于a卡片的上方，类似设置了一个z-index一样的属性</p>
+<p>解决的办法：<br>暂时还没找到完美的解决办法，只能做的就是将img直接放在a的下面，如果读者有更好的办法，欢迎告之</p>
+<p>附上几个相关的参考，貌似这个bug是一个比较偏僻的问题</p>
+<ol>
+<li><a href="http://www.qttc.net/201210227.html" target="_blank" rel="external">IE浏览器A标签下包含img诡异BUG</a></li>
+<li><a href="http://bbs.blueidea.com/thread-3059464-1-1.html" target="_blank" rel="external">蓝色理想</a></li>
+<li><a href="http://aiyouu.net/ie-link-no-click/" target="_blank" rel="external">ie中a链接失效的问题</a></li>
+</ol>
+<p><strong>update 20141008</strong><br>后来测试了一个方法，貌似有效，其实以上的问题归根结底的关键问题就是在IE7上面不能点击的问题，我也测试了几次，感觉应该就是imag元素父元素中有width和height的属性或者是overflow:hidden都会对这个有影响，在去掉之后确实可行，还有一个办法就是用下hack *display:inline；使他变为行内元素，在<a href="http://segmentfault.com/q/1010000000712673?_ea=35359" target="_blank" rel="external">sf社区</a>上也发了一个帖子问了下，貌似确实是a元素行内元素内部不能含有块级元素</p>
+<p>再附上一个参考链接：<br><a href="http://stackoverflow.com/questions/2319636/why-cant-i-click-on-this-link-with-a-nested-image-in-ie7" target="_blank" rel="external">Why can’t I click on this link with a nested image in IE7?</a></p>
+<p>##12. input 输入框在chrome和ff下的样式不一样的问题 ##</p>
+<p>之前没发现，那天测试的姐姐给报了一个bug，附上效果地址<br><img src="http://img2.ph.126.net/7fdPCug5oSjQCxtXr2Phgg==/2216052491743844216.png" alt="不同的input"><br>很明显，在border的上面差距很大，chrome比较平滑简单，而ff则比较在意显示的效果</p>
+<p>##13. 关于position:absolute的一些定位##</p>
+<p>关于position:absolute，正常的情况下，他是会按照从该节点开始一次往上找元素，找到第一个position属性不为static的元素进行定位，一般的情况都是这样就能处理了。不过有例外的就是如果找不到这样的元素是怎么定位呢？网上很多的流传是按照body进行定位，其实上是么？<a href="http://www.zhihu.com/question/19926700?sort=created" target="_blank" rel="external">点击知乎的问题</a></p>
+<p>其实这样的说法是不正确是，正确是应该是以viewport(也就是浏览器视窗内渲染 HTML 的空间)为大小的矩形。<br>代码如下</p>
+<pre><code>.block1{<span class="built_in">background</span>-<span class="built_in">color</span>: <span class="built_in">red</span>;<span class="variable">width</span>: <span class="number">400</span>px;<span class="variable">height</span>: <span class="number">300</span>px;}
+.block2{position:absolute;bottom:<span class="number">0</span>px;left:<span class="number">0</span>px;<span class="variable">width</span>:<span class="number">200</span>px;<span class="variable">height</span>:<span class="number">100</span>px;<span class="built_in">background</span>-<span class="built_in">color</span>:<span class="built_in">blue</span>;}
+&lt;div class=<span class="string">"block1"</span>&gt;&lt;/div&gt;
+&lt;div class=<span class="string">"block2"</span>&gt;&lt;/div&gt;
+</code></pre><p>可以查看下一个比较直接的截图<br>当浏览器的窗口比较大的时候<br><img src="http://img2.ph.126.net/jnPKefx2y1YthJJxblanRw==/6619067695793200250.png" alt="窗口比较大"></p>
+<p>当浏览器的窗口比较小的时候<br><img src="http://img1.ph.126.net/ko6U2kfwtoajoUCVpXREmQ==/2288673035735331040.png" alt="窗口比较小"></p>
+<p>所有为了避免上面的block1和block2会发生图2重叠的情况，可以设置一个margin-bottom的间距==block2的高度</p>
+<p>##14. new date的兼容##<br>又是new date，上回是时区的时间差，这回是兼容问题，貌似类似new Date(“2013-12-22 12:12”)这样的初始化在IE10上貌似就会挂掉了。所以稳妥点的初始化的方法就是new Date(2013,11,22,12,21)其中，月份是从0开始计算的</p>
+<h2 id="其他">其他</h2><ol>
+<li>在用一些模板的时候，比如ftl，永远不要相信后台能保证之前提供的接口，会把所有的数据都照常返回，出现意外的情况还是很多的，所以必须要做好容错的处理，对一些关键变量要进行判断，是否存在的判断是必须的</li>
+<li>可以对前台获取到的数据进行一些处理，比如字符串”adsad     ad”可以处理为”adsad ad”，即可以将一些没有必要的空格过滤掉</li>
+<li><p><strong>注意&amp;&amp;看清一些数字是字符串还是Number类型的</strong>，原因就是对于0和”0”，他表现出来的是两种情况</p>
+<pre><code><span class="keyword">if</span>(!!<span class="literal">a</span>)
+<span class="literal">a</span>=<span class="string">"0"</span> <span class="literal">true</span>
+<span class="literal">a</span>=<span class="number">0</span>  <span class="literal">false</span>
+</code></pre></li>
+<li><p>z-index 仅能在定位元素上奏效（position 属性值为 relative 或 absolute 或 fixed的对象）。</p>
+</li>
+<li><p>注意下类似一些频繁发生的事件可以适当控制好他执行的评论，比如类似resize这类事件，稍微一动就会触发，所以可以采用如下的办法</p>
+<pre><code><span class="keyword">var</span> resizeEvent = <span class="literal">null</span>;
+<span class="keyword">if</span> (resizeEvent) {
+    clearTimeout(resizeEvent)
+}
+resizeEvent = setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+   <span class="comment">/*event*/</span>
+}, <span class="number">400</span>);
+</code></pre></li>
+<li>css中的opciita有继承性  父元素设置了透明，后面的子元素也会这样透明</li>
+<li><p>opacity属性只能应用在那些背景色上，但是类似边框颜色等的没有效果，这个可以在css3中解决方案<br><img src="http://note.youdao.com/yws/res/2070/588D4C55C1D44CEDB1B58F2B97C42D1F" alt="Opacity效果"></p>
+</li>
+<li><p>对于浏览器的检测，用userAgent，只能说一般会对，现在有越来越多的东西会修改这个参数了，比如浏览器chrome可以模拟好多设备的代理，所以不能全信这个</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+       
+      <a data-url="http://tankpt.github.io/2014/08/26/20140826_summary/" data-id="cifv8tbw90014a2jg79tvstw3" class="article-share-link"></a>
+        <div class="bdsharebuttonbox" style="float:right">
+          <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+          <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+          <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+          <a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a>
+        </div>
+        <script>
+          window._bd_share_config={
+            "common":{
+              "bdSnsKey":{},
+              "bdText":"",
+              "bdMini":"1",
+              "bdMiniList":["tsina","weixin","douban","sqq","youdao","mail","fbook","twi"],
+              "bdPic":"",
+              "bdStyle":"0",
+              "bdSize":"16"
+            },
+            "share":{}
+          };
+          with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+
+        </script>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+
+    </footer>
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/09/14/20140914_performance/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          关于前端性能的一点整理（未完待续）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/08/17/20140817_blockinline/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">有关视觉格式化</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="post-20140826_summary" data-title="坑整理第二辑" data-url="/2014/08/26/20140826_summary/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"tankpt"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+    </script>
+  <!-- 多说公共JS代码 end -->
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/">mobile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端资源/">前端资源</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/总结/">总结</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感悟/">感悟</a><span class="tag-list-count">9</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/css/" style="font-size: 13.33px;">css</a> <a href="/tags/js/" style="font-size: 16.67px;">js</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/前端资源/" style="font-size: 10px;">前端资源</a> <a href="/tags/性能/" style="font-size: 10px;">性能</a> <a href="/tags/总结/" style="font-size: 20px;">总结</a> <a href="/tags/感悟/" style="font-size: 20px;">感悟</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">九月 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/10/17/20151017-sum/">新的起点</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/13/20150713-performance/">前端性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/25/20150625_graduate/">致我将要逝去的学生时代</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/09/20150609_sum/">好多坑</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/07/20150607_summary/">写在实习满三个月</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+  <div class="widget-wrap">
+  	<h3 class="widget-title">我的豆瓣FM秀</h3>
+  	<div style="margin-left:15px;"><script src="http://img3.douban.com/f/shire/b5b388ff620cf7006188492cc075a423519ba257/js/radiowidget.js?doubanid=46888103&maxresults=3"></script>
+  	</div>
+  </div>
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Tankpt<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">存档</a>
+  
+</nav>
+    
+
+<script src="//upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.3.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+  </div>
+</body>
+</html>

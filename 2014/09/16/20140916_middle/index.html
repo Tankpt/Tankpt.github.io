@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>一些关于居中的整理 | Tankpt&#39;s blog</title>
+  <meta name="google-site-verification" content="r0NFMdCjEJZ3uwd3eOd-5O2i3hV_IuodGEOlYk1BTAA" />
+  <meta name="keywords" content="tankpt blog github gitpage hexo">
+  <meta name="description" content="tankpt's blog Powered by Hexo">
+  <meta name="author" content="tankpt,tinkpt@hotmail.com ">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="关于这类居中的问题，貌似各种考的会很多，然后生产实践中也确实会遇到很多，网上随便一搜也能找到很多狠多的例子，这里就简单整理一下自己到现在用过的一些方法，都算是比较简单的然后兼容问题较好的，能大部分解决遇到的问题，但是对于一些极端变态的情况，这里的貌似有些力不从心。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一些关于居中的整理">
+<meta property="og:url" content="http://tankpt.github.io/2014/09/16/20140916_middle/index.html">
+<meta property="og:site_name" content="Tankpt's blog">
+<meta property="og:description" content="关于这类居中的问题，貌似各种考的会很多，然后生产实践中也确实会遇到很多，网上随便一搜也能找到很多狠多的例子，这里就简单整理一下自己到现在用过的一些方法，都算是比较简单的然后兼容问题较好的，能大部分解决遇到的问题，但是对于一些极端变态的情况，这里的貌似有些力不从心。">
+<meta property="og:image" content="http://7vzsgl.com1.z0.glb.clouddn.com/blog20140916_middle1.png">
+<meta property="og:image" content="http://7vzsgl.com1.z0.glb.clouddn.com/blog20140916_middle2.png">
+<meta property="og:updated_time" content="2015-10-17T13:29:10.868Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一些关于居中的整理">
+<meta name="twitter:description" content="关于这类居中的问题，貌似各种考的会很多，然后生产实践中也确实会遇到很多，网上随便一搜也能找到很多狠多的例子，这里就简单整理一下自己到现在用过的一些方法，都算是比较简单的然后兼容问题较好的，能大部分解决遇到的问题，但是对于一些极端变态的情况，这里的貌似有些力不从心。">
+  
+    <link rel="alternative" href="/atom.xml" title="Tankpt&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Tankpt&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">存档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://tankpt.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-20140916_middle" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/16/20140916_middle/" class="article-date">
+  <time datetime="2014-09-16T14:42:50.000Z" itemprop="datePublished">2014-09-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      一些关于居中的整理
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>关于这类居中的问题，貌似各种考的会很多，然后生产实践中也确实会遇到很多，网上随便一搜也能找到很多狠多的例子，这里就简单整理一下自己到现在用过的一些方法，都算是比较简单的然后兼容问题较好的，能大部分解决遇到的问题，但是对于一些极端变态的情况，这里的貌似有些力不从心。<br><a id="more"></a></p>
+<p>##一、水平居中##</p>
+<p>###1. 文字居中###<br>对于一些文字向让他在一个块内居中，最简单的方法就是可以对父元素进行设置</p>
+<pre><code>.center{<span class="type">text</span>-align:center;}
+&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"center"</span>&gt;
+    一些居中的内容
+&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>###2. 定宽的块居中(父元素宽度未知)###<br>适用于一个有着定宽的块，让他居中，这个情况还是很常见的，比如在切图的时候，要中间设置一个width:960px的块，让他始终都居中，无论浏览器的宽度被拉到多大</p>
+<pre><code>.center{margin:<span class="number">0</span> auto;<span class="variable">width</span>:<span class="number">960</span>px;<span class="built_in">background</span>-<span class="built_in">color</span>:<span class="built_in">red</span>;}
+&lt;div class=<span class="string">"center"</span>&gt;
+    始终居中的块
+&lt;/div&gt;
+</code></pre><p>###3. 定宽的块(父元素的宽度已知)###<br>对于这种情况可以简单粗暴的方法来解决，大致的思路就是既然都知道了让这个块居中时，它的左偏移的距离了，那么用定位（或者内边距）来解决，</p>
+<pre><code>.demo3{width: <span class="number">400</span>px;}
+.demo3 .child{width: <span class="number">100</span>px;margin-left: <span class="number">150</span>px;}
+&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"demo3 red"</span>&gt;
+    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"child blue"</span>&gt;I'm child Block&lt;/<span class="keyword">div</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>或者是下面的方法</p>
+<pre><code>.child1{position: relative;left: <span class="number">50</span>%;margin-left: -<span class="number">50</span>px;width: <span class="number">100</span>px;}
+&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"demo3 red"</span>&gt;
+    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"child1 blue"</span>&gt;I'm child Block&lt;/<span class="keyword">div</span>&gt;
+&lt;/<span class="keyword">div</span>&gt;
+</code></pre><p>不过这样应用的场景不会很多，毕竟也太如意了</p>
+<p>###4. table的方法###</p>
+<p>关于table的方法，大家在试用表格的时候也看到了，在表格里面的元素可以很简单的居中，所以在display的属性里面也有设置父元素display:table，然后再设置子元素为display:table-cell，不过这种方式考虑到这个兼容性的问题，自己平时没用到，例子就省去了</p>
+<p>下面贴上几个水平的例子效果<br><img src="http://7vzsgl.com1.z0.glb.clouddn.com/blog20140916_middle1.png" alt="水平居中"></p>
+<p>##二、垂直居中##</p>
+<p>###1. line-height只有一行文字###<br>对于有些块，需求需要让他垂直居中，然后比较特殊的是他里面的内容只会在一行里出现，最常见的就是要放置一个按钮的时候了，要让里面的内容简单的居中，针对这类问题最简单的就是设置line-height==父元素的高度</p>
+<pre><code>.demo1{<span class="variable">width</span>: <span class="number">150</span>px;font-<span class="built_in">size</span>: <span class="number">20</span>px;<span class="variable">height</span>: <span class="number">50</span>px;<span class="built_in">line</span>-<span class="variable">height</span>: <span class="number">50</span>px;<span class="built_in">text</span>-align: center;}
+&lt;div class=<span class="string">"demo1 red"</span>&gt;
+    button
+&lt;/div&gt;
+</code></pre><p>这里的原理涉及到行框的形成</p>
+<p>###2. vertain-align＋line-height###<br>这个方法是直接摘录自博客了，里面有两点需要注意</p>
+<ol>
+<li>父元素font-size需要设置为0，这个跟vertain-align:middle的定义有关，可以具体看参考博文１;</li>
+<li>还有一点比较重要的是要对子元素的line-height进行重置，因为line-height会有继承的效果，所以如果不重置，大家可以看看效果</li>
+</ol>
+<pre><code>.outer { <span class="built_in">line</span>-<span class="variable">height</span>: <span class="number">100</span>px; <span class="variable">height</span>: <span class="number">100</span>px; font-<span class="built_in">size</span>: <span class="number">0</span>; }
+.inner { display:inline-block; vertical-align:middle; font-<span class="built_in">size</span>: <span class="number">16</span>px;<span class="variable">height</span>: <span class="number">50</span>px;<span class="variable">width</span>: <span class="number">100</span>%;<span class="built_in">line</span>-<span class="variable">height</span>: <span class="built_in">normal</span>;  }
+&lt;div class=<span class="string">"outer red"</span>&gt;
+    &lt;div class=<span class="string">"inner blue"</span>&gt;child&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p>###3. 类似水平居中的3(父元素的高度已知)###<br>同上面的３一样只过不过这回修改的top　还有height的属性而已</p>
+<p>###4. 绝对定位外边距为auto可以得到垂直居中###<br>这个方法是在《css权威指南》的时候看到的，大体的思路就是让一个绝对定位的元素eft: 0; top: 0; right: 0; bottom: 0;</p>
+<pre><code>.demo3{<span class="string">position:</span> relative;<span class="string">height:</span> <span class="number">200</span>px;<span class="string">width:</span> <span class="number">400</span>px;}
+.demo3 .child{<span class="string">position:</span> absolute;<span class="string">margin:</span> auto <span class="number">0</span>;<span class="string">width:</span> <span class="number">200</span>px;<span class="string">height:</span> <span class="number">100</span>px;absolute; <span class="string">left:</span> <span class="number">0</span>; <span class="string">top:</span> <span class="number">0</span>; <span class="string">right:</span> <span class="number">0</span>; <span class="string">bottom:</span> <span class="number">0</span>;}
+&lt;div <span class="class"><span class="keyword">class</span>="<span class="title">demo3</span> <span class="title">red</span>"&gt;
+    &lt;<span class="title">div</span> <span class="title">class</span>="<span class="title">child</span> <span class="title">blue</span>"&gt;<span class="title">test</span>&lt;/<span class="title">div</span>&gt;
+&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><p><img src="http://7vzsgl.com1.z0.glb.clouddn.com/blog20140916_middle2.png" alt="水平居中"></p>
+<p>其实还有很多的方法，比如css３上面就有很多，不过自己平时也没怎么使用，所以也就不加了<br>附上<a href="https://gist.github.com/7f624c4d82ccd99c5ccf.git" target="_blank" rel="external">代码gist</a></p>
+<p>参考博文<br><a href="http://blog.segmentfault.com/humphry/1190000000381042" target="_blank" rel="external">整理：子容器垂直居中于父容器的方案</a>　整理的超级不错<br><a href="http://www.qianduan.net/css-to-achieve-the-vertical-center-of-the-five-kinds-of-methods.html" target="_blank" rel="external">CSS实现垂直居中的5种方法</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+       
+      <a data-url="http://tankpt.github.io/2014/09/16/20140916_middle/" data-id="cifv8tbw7000za2jgmko37jh9" class="article-share-link"></a>
+        <div class="bdsharebuttonbox" style="float:right">
+          <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+          <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+          <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+          <a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a>
+        </div>
+        <script>
+          window._bd_share_config={
+            "common":{
+              "bdSnsKey":{},
+              "bdText":"",
+              "bdMini":"1",
+              "bdMiniList":["tsina","weixin","douban","sqq","youdao","mail","fbook","twi"],
+              "bdPic":"",
+              "bdStyle":"0",
+              "bdSize":"16"
+            },
+            "share":{}
+          };
+          with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+
+        </script>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+
+    </footer>
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/09/21/20140921_sum/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          九月小结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/09/14/20140914_performance/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">关于前端性能的一点整理（未完待续）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="post-20140916_middle" data-title="一些关于居中的整理" data-url="/2014/09/16/20140916_middle/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"tankpt"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+    </script>
+  <!-- 多说公共JS代码 end -->
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/">mobile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端资源/">前端资源</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/总结/">总结</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感悟/">感悟</a><span class="tag-list-count">9</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/css/" style="font-size: 13.33px;">css</a> <a href="/tags/js/" style="font-size: 16.67px;">js</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/前端资源/" style="font-size: 10px;">前端资源</a> <a href="/tags/性能/" style="font-size: 10px;">性能</a> <a href="/tags/总结/" style="font-size: 20px;">总结</a> <a href="/tags/感悟/" style="font-size: 20px;">感悟</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">九月 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/10/17/20151017-sum/">新的起点</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/13/20150713-performance/">前端性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/25/20150625_graduate/">致我将要逝去的学生时代</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/09/20150609_sum/">好多坑</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/07/20150607_summary/">写在实习满三个月</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+  <div class="widget-wrap">
+  	<h3 class="widget-title">我的豆瓣FM秀</h3>
+  	<div style="margin-left:15px;"><script src="http://img3.douban.com/f/shire/b5b388ff620cf7006188492cc075a423519ba257/js/radiowidget.js?doubanid=46888103&maxresults=3"></script>
+  	</div>
+  </div>
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Tankpt<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">存档</a>
+  
+</nav>
+    
+
+<script src="//upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.3.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+  </div>
+</body>
+</html>

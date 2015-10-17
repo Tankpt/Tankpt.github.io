@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>关于前端一些想法 | Tankpt&#39;s blog</title>
+  <meta name="google-site-verification" content="r0NFMdCjEJZ3uwd3eOd-5O2i3hV_IuodGEOlYk1BTAA" />
+  <meta name="keywords" content="tankpt blog github gitpage hexo">
+  <meta name="description" content="tankpt's blog Powered by Hexo">
+  <meta name="author" content="tankpt,tinkpt@hotmail.com ">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="学前端也有一段时间了。偶尔会看看一些文章，最近来到新的公司实习，看了跟之前老公司的对比，还是有点感触的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于前端一些想法">
+<meta property="og:url" content="http://tankpt.github.io/2015/04/03/20150403_summary/index.html">
+<meta property="og:site_name" content="Tankpt's blog">
+<meta property="og:description" content="学前端也有一段时间了。偶尔会看看一些文章，最近来到新的公司实习，看了跟之前老公司的对比，还是有点感触的。">
+<meta property="og:updated_time" content="2015-10-17T13:29:10.868Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于前端一些想法">
+<meta name="twitter:description" content="学前端也有一段时间了。偶尔会看看一些文章，最近来到新的公司实习，看了跟之前老公司的对比，还是有点感触的。">
+  
+    <link rel="alternative" href="/atom.xml" title="Tankpt&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Tankpt&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">存档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://tankpt.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-20150403_summary" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/04/03/20150403_summary/" class="article-date">
+  <time datetime="2015-04-03T14:35:33.000Z" itemprop="datePublished">2015-04-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      关于前端一些想法
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>学前端也有一段时间了。偶尔会看看一些文章，最近来到新的公司实习，看了跟之前老公司的对比，还是有点感触的。</p>
+<a id="more"></a>
+<p>##1. 前后端分离##<br>感觉这个词汇貌似是从node开始火了之后，开始慢慢出现到我们眼前的，新公司的这边的前段端感觉分离的还是相当的彻底的，这边的前端开发完全可以不依赖与后端，开发的流程完全可以前端先行，对于数据的依赖程度现在已经有一些比较成熟的工具可以来替代，比如mock.js，或者grunt里面也有类似的插件，通过拦截类似jQuery的ajax的方法，通过不修改借口名字的方法，去读自己的模拟数据。这边不同于以前，可能要做的一点就是接口先行，前后端的同学需要把彼此的接口的名称还有相关的数据字段都定义好，这样到时候两边同学的联调可以基本不用修改原有的代码，比较方法。<br>关于模板，现在的公司这边模板的东西是由后端进行维护的，感觉不是很好，前端做完demo之后给后端，然后有时候后端会问，这个页面里面那些地方前端进行了修改了，要是修改的地方少，那也还好，要是多了则该起来相当不方便，前后端关于模板修改的交涉就要花费一些时间。<br>而在老公司那边，前后端没分离的那么彻底，前后端的代码都是在一个仓库里面，经常更新代码之后本地启服务会遇到服务挂掉，这样都相当影响前端的开发效率，还有一点就是每次本地起服务的时间也是需要一定的代价的，其实前端关心的不是后台服务能不能跑起来，前端只管输入url后可以看到相关的页面可以展现出来。所以这样的开发模式会需要消耗很多的事件在等待后端上，不过那边好的一点就是模板引擎freemarker是由前端进行维护的，这让前端很爽，我们只要知道后端这个control中会填哪些数据即可，从页面在后端渲染完之后都是由前端来进行控制。省去这个模板维护的代价。</p>
+<p>##2. 代码的复用<br>原来公司用的一个前端框架算是内部的一个框架，应该除了公司以外其他的地方很少有人用吧，但是说实话，我觉得真的很厉害，算是一条龙的服务都有，好了回归正题，来谈谈代码的服用的一些想法。<br>理论上，代码要尽量可以做到复用性，为啥呢。其实最可以理解的就是不要重复造轮子，要把时间会在刀刃上，还有的一个好处就是要是进行组建的全局的修改只需要修改一个base的组件即可，但是要做到很好的复用性其实还是比较费时间的。你可能需要更多的时间放在这个组件的设计上，要做到一个比较好的可扩展性，特别是那些作为基础的组件尤其重要，这也非常考验写代码人的思维，既好用又可扩展性强，那真是爽了，问题是所有这些东西都是需要做一个权衡的，在可用性和扩展性，我个人感觉其实还是需要有一个权衡的，要是把一个组件设计的跟业务粘合的很紧，那么开发可能是爽歪歪了，一调用就解决问题，但是这样的组件一般可扩展性都会受到约束。<br>其实这里就是涉及到你对一个功能的拆分的粒度的细分，个人觉得还是很纠结的有时候</p>
+<p>##3. 代码工程化<br>感谢node的出现，多了grunt还有gulp，让前端的很多工作都可以解放出来，只需要在搭建整个工程的开始阶段费的时间陪下各个工具还有相关的参数，当完成之后，每次跑工程只需要一个命令就可以一键到位，还有watch liveload也真是大大帮忙了。<br>还有一些工具，比如git，做的好的话可以当开发者每次push自己的代码的时候就讲这类代码发布到cnd上，只要按照一定的命名规范，还是可以相当方便的。</p>
+<p>##4. 分层思想</p>
+<p>工程项目一大，代码的维护量就会呈现很陡的曲线上升，特别是大的项目一般不会是仅仅一个人做的，所以同样的代码很可能今天是你写，过几天由别人来修改你的代码，这里就是涉及到了代码的注释可维护性的问题了。<br>我看了下原来的部门跟现在的部门，可能两边做的项目的性质的不同，一边是多人做一个项目，一边是基本一个人会长期维护一个项目，所以在代码的层次结构上面可以比较明显的感觉到原来的部门的规范性，一般你只要知道他们习惯，你可以很容易的找到定位到相应的代码目录还有具体的文件内容。<br>说白了就是代码还是要规范点好，别让别人来踩你的吭，至少也要让别人好找你挖的吭</p>
+<p>##5. 阻止前端进步的兼容性<br>这是个头疼的问题，要是没有兼容性问题，也许世界会更加的美好，可惜就是这么多浏览器，不过比较好的事情就是微软现在貌似慢慢和中国的一些公司合作，慢慢吧一些老的XPIe淘汰。他们也准备使用新的浏览器了，虽然可能需要兼容新的浏览器了。。但是我觉得应该还是比IE好把。这也是一个福音<br>新老部门里面最大的差别应该就在这里了，这边可以尝试的东西还是超级多的，很多新的特性在原来的部门是没机会用的，这边还是提供了很多的机会来尝鲜的，这个真心不错</p>
+<p>##6. css的一点想法<br>其实在前端领域里面，感觉css是一个比较蛋疼的块，不想其他程序语言一样有着正规的程序逻辑可言，很多东西完全只是一个规则，没错，就是规则，至于为什么，答案就是。规范里就是这么规定的。我竟无法反驳</p>
+<p>个人觉得网易的那套nec还是相当不错的规范，模块，组件的命名规则，以及一些类似功能性的css，比如f-cb就是清除浮动，f-fl就是向左浮动<br>今天下午跟带我的师兄进行了一些讨论，讨论的结果当然是谁都没说服谁，其实这个根本就没有一个固定的答案，只是两种　解决方案各有好坏。我的一个想法就是将整个页面中的一些例如f-cb这样的css抽取出来，放到页面的节点中去，我先说下几点好处</p>
+<ol>
+<li>这样理论上可以做到，在整个打包完的css文件中可以只有唯一的一个float:left。最简单的就是打包完的css比较简洁嘛</li>
+<li>把这些带有明显语义化的类放到标签中去，带来的好处就是一看这个class我就知道他是什么结构，其实有点语义化比较好的感觉</li>
+<li>还有一点比较扯淡的就是这样的话有点可以对节点的样式进行拆分组装的感觉</li>
+</ol>
+<p>不好的地方：</p>
+<ol>
+<li>挺折腾的。师兄觉得类似那类清除浮动的直接可以写在类似less或者sass的minxin中去，直接作为函数来引，反正预处理什么的问题都是工具来做了，</li>
+<li>至于css可以变小，其实说实话小不了多少，而且全部这类放在html结构中，本身页面也会变大，而且，有时候可能需要用到多个f=*的时候，一个class后面会跟一堆，书写一不方便</li>
+</ol>
+<h2 id="最后">最后</h2><p>无论什么东西都没有一个最好的银弹，每个解决方案都是需要最一个折中的处理，有舍有得，做好选择，而且每个人判断的方法也不一样，做出的选择还是有区别的。</p>
+<p>前端是个造轮子神马最快最多的地方，东西也是井喷似的出现，所以需要调整好心态，抓住不变的来迎接万变。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+       
+      <a data-url="http://tankpt.github.io/2015/04/03/20150403_summary/" data-id="cifv8tbvl000ga2jg9sdl7f55" class="article-share-link"></a>
+        <div class="bdsharebuttonbox" style="float:right">
+          <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+          <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+          <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+          <a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a>
+        </div>
+        <script>
+          window._bd_share_config={
+            "common":{
+              "bdSnsKey":{},
+              "bdText":"",
+              "bdMini":"1",
+              "bdMiniList":["tsina","weixin","douban","sqq","youdao","mail","fbook","twi"],
+              "bdPic":"",
+              "bdStyle":"0",
+              "bdSize":"16"
+            },
+            "share":{}
+          };
+          with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+
+        </script>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+
+    </footer>
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/04/03/20150403_sum/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          去年今天
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/02/27/20150227_sum/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">14年下半年遇到的问题总结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="post-20150403_summary" data-title="关于前端一些想法" data-url="/2015/04/03/20150403_summary/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"tankpt"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+    </script>
+  <!-- 多说公共JS代码 end -->
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/">mobile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端资源/">前端资源</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/总结/">总结</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感悟/">感悟</a><span class="tag-list-count">9</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/css/" style="font-size: 13.33px;">css</a> <a href="/tags/js/" style="font-size: 16.67px;">js</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/前端资源/" style="font-size: 10px;">前端资源</a> <a href="/tags/性能/" style="font-size: 10px;">性能</a> <a href="/tags/总结/" style="font-size: 20px;">总结</a> <a href="/tags/感悟/" style="font-size: 20px;">感悟</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">九月 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/10/17/20151017-sum/">新的起点</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/13/20150713-performance/">前端性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/25/20150625_graduate/">致我将要逝去的学生时代</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/09/20150609_sum/">好多坑</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/07/20150607_summary/">写在实习满三个月</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+  <div class="widget-wrap">
+  	<h3 class="widget-title">我的豆瓣FM秀</h3>
+  	<div style="margin-left:15px;"><script src="http://img3.douban.com/f/shire/b5b388ff620cf7006188492cc075a423519ba257/js/radiowidget.js?doubanid=46888103&maxresults=3"></script>
+  	</div>
+  </div>
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Tankpt<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">存档</a>
+  
+</nav>
+    
+
+<script src="//upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.3.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+  </div>
+</body>
+</html>

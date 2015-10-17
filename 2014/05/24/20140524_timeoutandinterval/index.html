@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>setTimeout()和setInterval() | Tankpt&#39;s blog</title>
+  <meta name="google-site-verification" content="r0NFMdCjEJZ3uwd3eOd-5O2i3hV_IuodGEOlYk1BTAA" />
+  <meta name="keywords" content="tankpt blog github gitpage hexo">
+  <meta name="description" content="tankpt's blog Powered by Hexo">
+  <meta name="author" content="tankpt,tinkpt@hotmail.com ">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="够了解setTimeout()和setInterval()么，来试试下面的内容，可以测试下，反正我是学到了很多">
+<meta property="og:type" content="article">
+<meta property="og:title" content="setTimeout()和setInterval()">
+<meta property="og:url" content="http://tankpt.github.io/2014/05/24/20140524_timeoutandinterval/index.html">
+<meta property="og:site_name" content="Tankpt's blog">
+<meta property="og:description" content="够了解setTimeout()和setInterval()么，来试试下面的内容，可以测试下，反正我是学到了很多">
+<meta property="og:image" content="http://ejohn.org/files/Timers.png">
+<meta property="og:updated_time" content="2015-10-17T13:29:10.868Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="setTimeout()和setInterval()">
+<meta name="twitter:description" content="够了解setTimeout()和setInterval()么，来试试下面的内容，可以测试下，反正我是学到了很多">
+  
+    <link rel="alternative" href="/atom.xml" title="Tankpt&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Tankpt&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">存档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://tankpt.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-20140524_timeoutandinterval" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/05/24/20140524_timeoutandinterval/" class="article-date">
+  <time datetime="2014-05-24T01:47:53.000Z" itemprop="datePublished">2014-05-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      setTimeout()和setInterval()
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>够了解setTimeout()和setInterval()么，来试试下面的内容，可以测试下，反正我是学到了很多<br><a id="more"></a></p>
+<p>##函数的介绍##</p>
+<p>###1.1 setTimeout()###<br>首先看下，这个函数的定义:(<a href="https://developer.mozilla.org/zh-CN/docs/DOM/window.setTimeout" target="_blank" rel="external">具体请见MDN</a>)</p>
+<pre><code>setTimeout<span class="comment">(code,millisec)</span>;<span class="comment">//在指定的延迟时间之后调用一个函数或者执行一个代码片段</span>
+</code></pre><p>函数的定义也说的很明白，他主要是在指定的时间之后运行一个函数，提前在这里指出一下，这个指定只是一个期望值，但不是一个实际的，实际他什么时候运行还是一个未知数，原因在下面会有介绍。</p>
+<p>###1.2 setInterval###<br>函数的定义：(<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window.setInterval" target="_blank" rel="external">MDN</a>)</p>
+<pre><code><span class="built_in">set</span>Interval(codes, millisec);//周期性地调用一个函数(<span class="keyword">function</span>)或者执行一段代码
+</code></pre><p>有一个返回值是该函数的ID标识，可以用clearInterval函数来取消这样的周期执行</p>
+<p>大概的作用就是周期行的调用一个函数，然后周期的话由millisec来决定，就是数学里的周期函数一样的概念，同理，他这个周期也是一个“期望值”，实际归实际。</p>
+<p>##参数millisec的介绍##<br>在说之前首先推荐看下js定时器是如何工作的。推荐一个文章，<a href="http://ejohn.org/blog/how-javascript-timers-work/" target="_blank" rel="external">How JavaScript Timers Work</a>，如果英文看不明白的可以看下翻译版本<a href="http://www.cnitblog.com/asfman/articles/55714.html" target="_blank" rel="external">how-javascript-timers-work翻译</a>,看完估计你就会明白很多了，贴上一张里面的图<br><img src="http://ejohn.org/files/Timers.png" alt="js"></p>
+<p>我也稍微总结一下自己看的个人理解（如果不对希望能指出QQQ~~）：js里面有以一个类似任务的队列，js是单线程的，在每一个时刻里面都只能执行一小段的代码，暂时理解为一个代码块，新的任务将会添加到尾巴上去，所以说任务是有先后的，然后当一个任务在执行的时候，纵然有另一个任务调用了，都必须需要等待到此刻代码块运行结束之后再调用。</p>
+<p>###2.1 setTimeout()###<br>在前面提到了这个时间的参数定义的是js运行到setTimeout函数到他要执行这个函数的时间间隔，由于代码的执行效率是非常的高的，所有一般的情况下，我们是分辨不出这个中间的间隙。类似于setTimeout()这样的函数，执行的过程中，先将该任务放到执行队列中去，然后过了millisec时间后，再去调用，如果此时任务队列里面没有新的任务，那么很自然的按照理想的时间，他会调用，但是极端的情况下就不是那么如意了，如果时间到了，但是执行的任务队列里还堆积着任务，那么他将会被堆积着，直到前面的运行完毕，来一段代码</p>
+<pre><code><span class="keyword">var</span> sleep = <span class="function"><span class="keyword">function</span> (<span class="params">_sleepTime</span>)</span>{
+<span class="keyword">var</span> _curTime = <span class="keyword">new</span> <span class="built_in">Date</span>(),
+    _nextTime;
+<span class="built_in">console</span>.log(<span class="string">"before sleep "</span>+_curTime);
+<span class="keyword">while</span>(!_nextTime || _nextTime - _curTime &lt; _sleepTime){
+    _nextTime = <span class="keyword">new</span> <span class="built_in">Date</span>();
+}
+<span class="built_in">console</span>.log(<span class="string">"after sleep "</span>+_nextTime+<span class="string">"  last for "</span>+(_nextTime-_curTime));};
+<span class="keyword">var</span> time = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="built_in">console</span>.log(<span class="string">"begin setTimeout block"</span>);
+    sleep(<span class="number">100</span>);
+    <span class="built_in">console</span>.log(<span class="string">"end setTimeout block"</span>);
+};
+
+setTimeout(time,<span class="number">100</span>);
+sleep(<span class="number">10000</span>);
+</code></pre><p>再看下最后控制台的输出结果</p>
+<pre><code>before sleep Fri May <span class="number">23</span> <span class="number">2014</span> <span class="number">15</span>:<span class="number">25</span>:<span class="number">51</span> GMT+<span class="number">0800</span> (中国标准时间) 
+after sleep Fri May <span class="number">23</span> <span class="number">2014</span> <span class="number">15</span>:<span class="number">26</span>:<span class="number">01</span> GMT+<span class="number">0800</span> (中国标准时间)      last <span class="keyword">for</span> <span class="number">10000</span> 
+begin setTimeout block 
+before sleep Fri May <span class="number">23</span> <span class="number">2014</span> <span class="number">15</span>:<span class="number">26</span>:<span class="number">01</span> GMT+<span class="number">0800</span> (中国标准时间) 
+after sleep Fri May <span class="number">23</span> <span class="number">2014</span> <span class="number">15</span>:<span class="number">26</span>:<span class="number">01</span> GMT+<span class="number">0800</span> (中国标准时间)      last <span class="keyword">for</span> <span class="number">100</span> 
+end setTimeout block 
+</code></pre><p>分析下，按照正常的理想的状态，先执行的是setTimeout的函数，那么过了100ms之后应该会执行他，但是后面的一个sleep函数，直接执行了10000ms，虽然过了100ms确实需要去调用他，但是此时任务被阻塞了。所以你可以从上面的时间发现，setTimeout并没有按照期望的时间来执行。所以不能把有些任务太依赖于它</p>
+<p>###2.1 setInterval()###<br>这个函数还是很有意思的一个，以前也没发现，也是看了那篇博客之后才发现。<br>1.首先看一个比较正常的情况，比如你需要没过**时间间隔调用一个函数，就可以应用他</p>
+<pre><code><span class="keyword">var</span> time2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="built_in">console</span>.log(<span class="string">"sleep for 10ms"</span>);
+    sleep(<span class="number">10</span>);
+};
+setInterval(time2,<span class="number">1000</span>);
+</code></pre><p>很简单的情况，每个1秒调用一次</p>
+<hr>
+<p>2.然后开始看一个情况，跟1差不多，不过是每隔两秒调用一次time3函数，每次跑time3函数要1秒中，代码如下</p>
+<pre><code><span class="keyword">var</span> globle =<span class="number">0</span>;
+<span class="keyword">var</span> time3 = <span class="function"><span class="keyword">function</span><span class="params">()</span><span class="comment">{
+    console.log("I'm the No."+globle);
+    globle++;
+    sleep(1000);
+}</span>;</span>
+setInterval(time3,<span class="number">2000</span>);
+</code></pre><p>看下console的情况</p>
+<pre><code>I'm <span class="keyword">the</span> No<span class="number">.0</span> 
+<span class="keyword">before</span> sleepFri May <span class="number">23</span> <span class="number">2014</span> <span class="number">16</span>:<span class="number">19</span>:<span class="number">04</span> GMT+<span class="number">0800</span> 
+<span class="keyword">after</span> sleep Fri May <span class="number">23</span> <span class="number">2014</span> <span class="number">16</span>:<span class="number">19</span>:<span class="number">05</span> GMT+<span class="number">0800</span>    <span class="keyword">last</span> <span class="keyword">for</span> <span class="number">1000</span>
+I'm <span class="keyword">the</span> No<span class="number">.1</span> 
+<span class="keyword">before</span> sleepFri May <span class="number">23</span> <span class="number">2014</span> <span class="number">16</span>:<span class="number">19</span>:<span class="number">06</span> GMT+<span class="number">0800</span> 
+<span class="keyword">after</span> sleep Fri May <span class="number">23</span> <span class="number">2014</span> <span class="number">16</span>:<span class="number">19</span>:<span class="number">07</span> GMT+<span class="number">0800</span>    <span class="keyword">last</span> <span class="keyword">for</span> <span class="number">1000</span> 
+I'm <span class="keyword">the</span> No<span class="number">.2</span>
+<span class="keyword">before</span> sleepFri May <span class="number">23</span> <span class="number">2014</span> <span class="number">16</span>:<span class="number">19</span>:<span class="number">08</span> GMT+<span class="number">0800</span> 
+<span class="keyword">after</span> sleep Fri May <span class="number">23</span> <span class="number">2014</span> <span class="number">16</span>:<span class="number">19</span>:<span class="number">09</span> GMT+<span class="number">0800</span>    <span class="keyword">last</span> <span class="keyword">for</span> <span class="number">1000</span> 
+</code></pre><hr>
+<p>3.现在来一个执行时间要比间隔时间长的看看下情况<br>    代码如下</p>
+<pre><code>var globle = <span class="number">0</span> ,
+    _limit = <span class="number">5</span> ,
+    _clear ;
+var time3 = function(){
+    console.<span class="built_in">log</span>(<span class="string">"I'm the No."</span>+globle);
+    sleep(<span class="number">3000</span>);
+    globle++;
+    <span class="keyword">if</span>(globle &gt; <span class="number">5</span>){
+        clearInterval(_clear);
+    }
+};
+_clear = setInterval(time3,<span class="number">100</span>);
+</code></pre><p>主要的变化就是将time3函数的时间延长到3秒。这样就出现的时间的执行周期要比延迟的时间短的多多了，然后再来看下这回在console中的结果</p>
+<pre><code>I'm <span class="keyword">the</span> No<span class="number">.0</span> 
+<span class="keyword">before</span> sleepFri May <span class="number">23</span> <span class="number">2014</span> <span class="number">16</span>:<span class="number">29</span>:<span class="number">44</span> GMT+<span class="number">0800</span>
+<span class="keyword">after</span> sleep Fri May <span class="number">23</span> <span class="number">2014</span> <span class="number">16</span>:<span class="number">29</span>:<span class="number">47</span> GMT+<span class="number">0800</span>      <span class="keyword">last</span> <span class="keyword">for</span> <span class="number">3000</span> 
+I'm <span class="keyword">the</span> No<span class="number">.1</span> 
+<span class="keyword">before</span> sleepFri May <span class="number">23</span> <span class="number">2014</span> <span class="number">16</span>:<span class="number">29</span>:<span class="number">47</span> GMT+<span class="number">0800</span> 
+<span class="keyword">after</span> sleep Fri May <span class="number">23</span> <span class="number">2014</span> <span class="number">16</span>:<span class="number">29</span>:<span class="number">50</span> GMT+<span class="number">0800</span>      <span class="keyword">last</span> <span class="keyword">for</span> <span class="number">3000</span> 
+I'm <span class="keyword">the</span> No<span class="number">.2</span> 
+<span class="keyword">before</span> sleepFri May <span class="number">23</span> <span class="number">2014</span> <span class="number">16</span>:<span class="number">29</span>:<span class="number">50</span> GMT+<span class="number">0800</span>
+<span class="keyword">after</span> sleep Fri May <span class="number">23</span> <span class="number">2014</span> <span class="number">16</span>:<span class="number">29</span>:<span class="number">53</span> GMT+<span class="number">0800</span>      <span class="keyword">last</span> <span class="keyword">for</span> <span class="number">3000</span> 
+I'm <span class="keyword">the</span> No<span class="number">.3</span> 
+<span class="keyword">before</span> sleepFri May <span class="number">23</span> <span class="number">2014</span> <span class="number">16</span>:<span class="number">29</span>:<span class="number">53</span> GMT+<span class="number">0800</span> 
+<span class="keyword">after</span> sleep Fri May <span class="number">23</span> <span class="number">2014</span> <span class="number">16</span>:<span class="number">29</span>:<span class="number">56</span> GMT+<span class="number">0800</span>      <span class="keyword">last</span> <span class="keyword">for</span> <span class="number">3000</span> 
+I'm <span class="keyword">the</span> No<span class="number">.4</span> 
+<span class="keyword">before</span> sleepFri May <span class="number">23</span> <span class="number">2014</span> <span class="number">16</span>:<span class="number">29</span>:<span class="number">56</span> GMT+<span class="number">0800</span> 
+<span class="keyword">after</span> sleep Fri May <span class="number">23</span> <span class="number">2014</span> <span class="number">16</span>:<span class="number">29</span>:<span class="number">59</span> GMT+<span class="number">0800</span>      <span class="keyword">last</span> <span class="keyword">for</span> <span class="number">3000</span> 
+I'm <span class="keyword">the</span> No<span class="number">.5</span> 
+<span class="keyword">before</span> sleepFri May <span class="number">23</span> <span class="number">2014</span> <span class="number">16</span>:<span class="number">29</span>:<span class="number">59</span> GMT+<span class="number">0800</span> 
+<span class="keyword">after</span> sleep Fri May <span class="number">23</span> <span class="number">2014</span> <span class="number">16</span>:<span class="number">30</span>:<span class="number">02</span> GMT+<span class="number">0800</span>      <span class="keyword">last</span> <span class="keyword">for</span> <span class="number">3000</span> 
+</code></pre><p>不仔细看还不会发现，在每个执行的时间中，他的时间是连续的。并没有出现我们理想中时间的间隔100ms。中间的原因，可以这么来理解，当运行到第一个time3(1) 的时候，按照正常的情况执行，当时间过了100ms后，会再次调用time3(2)，可此时，前一个time3(1)还在执行，不能打断，只能将time3(2)放到任务队列中，又过了10ms，按照老样子，又会调用time3(3)，但是这个时候time3(1)还在执行，而time3(2)确还在任务队列中，这个时候就会发生一个比较奇怪的事情，就是time3(3)会被丢弃掉。确实很奇怪，下面用代码来测试下看看是否被丢弃掉</p>
+<pre><code> <span class="keyword">var</span> _beginTime ,
+_clear ,
+_globle = <span class="number">0</span>;
+
+<span class="keyword">var</span> time4 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    <span class="keyword">if</span>(_globle ==<span class="number">0</span>){
+        _beginTime = <span class="keyword">new</span> <span class="built_in">Date</span>();
+    }
+    <span class="built_in">console</span>.log(<span class="string">"I'm the No."</span>+_globle);
+    <span class="keyword">if</span>(<span class="keyword">new</span> <span class="built_in">Date</span>() - _beginTime &gt; <span class="number">2000</span>){
+        clearInterval(_clear);
+    }
+    sleep(<span class="number">3000</span>);
+    _globle++;
+};
+_clear = setInterval(time4,<span class="number">100</span>);
+</code></pre><p>如果他是一味的将任务加到队列中，而没有进行丢弃的动作的话，周期是100ms，然后我做的限制是当执行时间超过2000ms后，清除定时，如果没丢弃那么队列中应该会有大概20个的动作等待操作，然后在看看console中的结果：</p>
+<pre><code>I'<span class="keyword">m</span> the <span class="keyword">No</span>.0 
+before <span class="keyword">sleep</span> Sat May 24 2014 09:25:40 GMT+0800  
+after <span class="keyword">sleep</span> Sat May 24 2014 09:25:43 GMT+0800   last <span class="keyword">for</span> 3000 
+I'<span class="keyword">m</span> the <span class="keyword">No</span>.1 
+before <span class="keyword">sleep</span> Sat May 24 2014 09:25:43 GMT+0800  time.htm:14
+after <span class="keyword">sleep</span> Sat May 24 2014 09:25:46 GMT+0800   
+</code></pre><p>###2.3 补充###<br>经过上面的一些分析之后，应该稍微对这俩函数有点了解</p>
+<ol>
+<li>setTimeout()执行的时间是&gt;=规定的时间</li>
+<li>setInterval()执行的时间可能会比预期的时间小，比如上面例子中的0ms，没有时间间隔，某些间隔可能会被跳（被丢弃了）</li>
+<li><p>如下代码</p>
+<pre><code>setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+    <span class="comment">//code</span>
+    setTimeout(<span class="built_in">arguments</span>.callee, interval);
+}, interval)
+</code></pre><p>就是一个能防止中间间隔时间不出现那种0ms，或者是丢弃的方法，类似递归一样的解决</p>
+</li>
+</ol>
+<p>以上都是自己看博客加自己个人的理解，如有不对请指出，谢谢～<br>再附上两篇参考的文章：</p>
+<ol>
+<li><p><a href="http://www.cnblogs.com/dolphinX/archive/2013/04/05/2784933.html" target="_blank" rel="external">setTimeout()和setInterval() 何时被调用执行</a></p>
+</li>
+<li><p><a href="http://www.jb51.net/article/26679.htm" target="_blank" rel="external">setTimeout和setInterval的区别你真的了解吗?</a></p>
+</li>
+<li><p><a href="http://heroicyang.com/2012/08/28/javascript-event-loop/" target="_blank" rel="external">JavaScript Event Loop 浅析</a></p>
+</li>
+<li><p><a href="http://heroicyang.com/2012/09/06/javascript-timers/" target="_blank" rel="external">理解JavaScript定时器：setTimeout和setInterval</a></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+       
+      <a data-url="http://tankpt.github.io/2014/05/24/20140524_timeoutandinterval/" data-id="cifv8tbwl001ia2jg20isg7z8" class="article-share-link"></a>
+        <div class="bdsharebuttonbox" style="float:right">
+          <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+          <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+          <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+          <a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a>
+        </div>
+        <script>
+          window._bd_share_config={
+            "common":{
+              "bdSnsKey":{},
+              "bdText":"",
+              "bdMini":"1",
+              "bdMiniList":["tsina","weixin","douban","sqq","youdao","mail","fbook","twi"],
+              "bdPic":"",
+              "bdStyle":"0",
+              "bdSize":"16"
+            },
+            "share":{}
+          };
+          with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+
+        </script>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+    </footer>
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/05/28/20140528_cors/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          跨域消息传递
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/05/21/20140520_sum/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">开心？健康？选择</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="post-20140524_timeoutandinterval" data-title="setTimeout()和setInterval()" data-url="/2014/05/24/20140524_timeoutandinterval/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"tankpt"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+    </script>
+  <!-- 多说公共JS代码 end -->
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/">mobile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端资源/">前端资源</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/总结/">总结</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感悟/">感悟</a><span class="tag-list-count">9</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/css/" style="font-size: 13.33px;">css</a> <a href="/tags/js/" style="font-size: 16.67px;">js</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/前端资源/" style="font-size: 10px;">前端资源</a> <a href="/tags/性能/" style="font-size: 10px;">性能</a> <a href="/tags/总结/" style="font-size: 20px;">总结</a> <a href="/tags/感悟/" style="font-size: 20px;">感悟</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">九月 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/10/17/20151017-sum/">新的起点</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/13/20150713-performance/">前端性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/25/20150625_graduate/">致我将要逝去的学生时代</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/09/20150609_sum/">好多坑</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/07/20150607_summary/">写在实习满三个月</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+  <div class="widget-wrap">
+  	<h3 class="widget-title">我的豆瓣FM秀</h3>
+  	<div style="margin-left:15px;"><script src="http://img3.douban.com/f/shire/b5b388ff620cf7006188492cc075a423519ba257/js/radiowidget.js?doubanid=46888103&maxresults=3"></script>
+  	</div>
+  </div>
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Tankpt<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">存档</a>
+  
+</nav>
+    
+
+<script src="//upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.3.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+  </div>
+</body>
+</html>
