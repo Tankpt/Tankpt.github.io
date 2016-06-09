@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://tankpt.github.io/"/>
-  <updated>2016-04-03T02:57:25.554Z</updated>
+  <updated>2016-06-09T13:31:35.027Z</updated>
   <id>http://tankpt.github.io/</id>
   
   <author>
@@ -13,6 +13,66 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Package.json]]></title>
+    <link href="http://tankpt.github.io/2016/06/09/20160609-packagejson-md/"/>
+    <id>http://tankpt.github.io/2016/06/09/20160609-packagejson-md/</id>
+    <published>2016-06-09T13:26:35.000Z</published>
+    <updated>2016-06-09T13:31:35.027Z</updated>
+    <content type="html"><![CDATA[<p>关于Package.json的一点注意</p>
+<a id="more"></a>
+<h2 id="1-_起因">1. 起因</h2><p>现在基本上所有的前端组件代码仓库，无论是打包工具还是组件的依赖包都需要有package.json这个文件，虽然每天在接触的package.json，但是我猜能一口气把常见的配置说出来是个什么鬼的人并不是大部分，所以有机会都可以了解下。</p>
+<p>很多人有时候会很偷懒，在新建一个工程的时候习惯把把前一个工程的的package.json直接拷贝过来，虽然很多时候并没有太大的影响，但这也太随意的。</p>
+<ol>
+<li>很多npm包在使用的时候并不需要，额外包给项目初始化的时候耗费时间(大部分虽然影响只有一次)</li>
+<li>有些组件包package.json错误的使用，会让其他引用它包可能都带来问题</li>
+<li>有些字段类似name、version、publishConfig、homepage、bugs、repository对应那些要上传至npm的包则是需要严格要求的</li>
+<li>组件的依赖关系在package.json中不能在dependencies、devDependencies、peerDependencies随便放</li>
+</ol>
+<h2 id="2-_几个字段的说明">2. 几个字段的说明</h2><h3 id="2-1_version">2.1 version</h3><p>版本号，对于那些发至npm的组件，要非常注意，一般都是使用语义化版本号来命名，</p>
+<h3 id="2-2_scripts">2.2 scripts</h3><p>这里可以定义一些脚本的处理，比如本地启一个server的时候或者是使用一些打包，比如browserify的打包，有些人习惯用gulp或者是grunt来进行打包，但是还有一部分是是用<a href="http://substack.net/task_automation_with_npm_run" target="_blank" rel="external">npm-script进行打包的</a>，这样适合那些对打包的配置想有跟多的掌控，但是代价就是会更复杂</p>
+<p><a href="https://docs.npmjs.com/misc/scripts" target="_blank" rel="external">npm官方关于npm-scripts一些描述</a>，有一点就是除了那些特定的script可以直接npm ** 运行，其他的需要使用npm run ** ，比如我们对仓库代码要进行打包我们定义一个build，他默认会提供俩钩子，分别是pre &amp; post</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#10;&#9;&#34;scripts&#34;:&#123;&#10;&#9;&#9;&#34;prebuild&#34;: &#34;echo &#39;prebuild&#39;&#34;,&#10;    &#9;&#34;build&#34;: &#34;echo &#39;build&#39; &#34;,&#10;    &#9;&#34;postbuild&#34;: &#34;echo &#39;afterbuild&#39; &#34;&#10;&#9;&#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>这样运行npm run build，就会同时跑以上的三个任务</p>
+<h3 id="2-3_main">2.3 main</h3><p>main字段配置一个文件名指向模块的入口程序，比如你的入口文件是放在lib/index.js，有俩种做法，一种是在main中定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#10;&#9;&#34;main&#34; : &#34;lib/index.js&#34;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>方法二则是在根目录下建一个index.js里面则是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">module.exports = require(&#39;lib/index.js&#39;);</span><br></pre></td></tr></table></figure>
+<h3 id="2-4_dependencies、devDependencies、peerDependencies">2.4 dependencies、devDependencies、peerDependencies</h3><h4 id="2-4-1_dependencies">2.4.1 dependencies</h4><p>当前包强依赖的三方包</p>
+<h4 id="2-4-2_devDependencies">2.4.2 devDependencies</h4><p>当前包开发或者测试依赖的三方包</p>
+<p>在本地的开发使用过程中dependencies和devDependencies并没有太大的区别，但是一旦发布到npm包，这就会有差别，作为npm 的包在install的时候不会安装devDependencies的依赖</p>
+<h4 id="2-4-3_peerDependencies">2.4.3 peerDependencies</h4><p>举个列子，当包A和包B同时依赖了模块C，而且比较悲剧的事情俩C的版本却不一样，无论是npm3还是npm2都是会将俩版本的模块C都安装，这个时候可以在peerDependencies指定模块c的版本</p>
+<p><strong>注：在npm3版本之前定义在peerDependencies也会自动安装，但是在npm3中则不会，他仅仅只是有一个提示</strong></p>
+<h2 id="3-_使用中注意的几点">3. 使用中注意的几点</h2><h3 id="3-1_react及react-dom">3.1 react及react-dom</h3><p>关于react以及react-dom在package.json中，应该如何放置呢？</p>
+<h4 id="3-1-1_从含义上来说">3.1.1 从含义上来说</h4><p>对应某个组件，react及react-dom确实是一个组件实际依赖的部分，按照这个逻辑是应该放到dependencies应该是更为合理，但是问题来了，如果包内外依赖的组件版本不一致的时候，会同时引入两份react，这个浏览器端会报错，，而且react本事并不小。虽然这个问题可以通过webpack中配置来解决，最终在页面中引入一份js即可，但是这样的话需要所有用你组件的同学用这样的打包方式，不太合适</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#10; &#9;externals: &#123;&#10;        &#34;react&#34;: &#34;React&#34;,&#10;        &#34;react-dom&#34;: &#34;ReactDOM&#34;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-1-2_使用中">3.1.2 使用中</h4><p>当初@何道同学提起了这个问题，我于是去喵了喵现在的组件包中对react及react-dom的引用。</p>
+<ol>
+<li>比如<a href="https://github.com/react-component/slider" target="_blank" rel="external">react-component/slider</a>的使用方式则是使用了devDependencies，尴尬的问题就是如果我外面没有引用react，在npm安装的时候并不会安装，（虽然在使用的场景中，外部引用组件的仓库肯定会用引用react），略尴尬</li>
+<li>比如<a href="https://github.com/reactjs/react-redux" target="_blank" rel="external">reactjs/react-redux</a>，他的使用方式是在peerDependencies中定义了react及react-dom的引用，其实这个是个人觉得更加合理的方式，但是很不幸的问题是在npm3之前这个是完全没问题的，而在npm3中则不会自动安装，只是一个提示，在本地开发有点尴尬</li>
+</ol>
+<p>纠结了很久，后来看到了<a href="http://stackoverflow.com/questions/30451556/what-is-the-correct-way-of-adding-a-dependency-to-react-in-your-package-json-for" target="_blank" rel="external">这个文章</a>，嗯脑补了下确实如此，感觉比较合理的方式是将react及react-dom的依赖同时定义在devDependencies、peerDependencies，这样貌似看起来本地开发，包发布俩不误，注意在peerDependencies中可以将依赖的组件版本定的更为宽泛点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#10;&#9;&#34;peerDependencies&#34;: &#123;&#10;    &#9;&#34;react&#34;: &#34;^0.14.0 || ^15.0.0&#34;,&#10;    &#9;&#34;react-dom&#34;: &#34;^0.14.0 || ^15.0.0&#34;&#10;  &#9;&#125;,&#10;  &#9;&#34;devDependencies&#34;: &#123;&#10;    &#9;&#34;react&#34;: &#34;^0.14.0&#34;,&#10;    &#9;&#34;react-dom&#34;: &#34;^0.14.0&#34;&#10;  &#9;&#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-2_版本号">3.2 版本号</h3><p>一般不太建议将版本号写的太死，也不能太随性，关于～和^差别不一样，要注意区分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#34;async&#34;: &#34;~0.9.0&#34;,&#10;&#34;async&#34;: &#34;^0.9.0&#34;</span><br></pre></td></tr></table></figure>
+<h2 id="4-_其他">4. 其他</h2><h3 id="4-1_npm2_vs_npm3">4.1 npm2 vs npm3</h3><ol>
+<li>安装速度：npm3安装速度完虐npm2，一般安装npm3还是比较安静的，但是安装一个npm2基本上pro可以烧开一壶水了</li>
+<li>npm3在安装的时候会将你的所有依赖的一样的版本号的包进行抽离出来，打平到最外层，这个感觉对提示效率还是蛮明显的，但是想想对于一个包来说，更加对的方式应该还是安装到相应的组件包的folder下面，这样的做法有一个就是，有时候不小心require一个模块，但是package.json中没有定义，在npm3中还是会正常工作，因为有可能那个模块被他引的模块给引入，因为npm3的包打平放到了最外层</li>
+</ol>
+<h3 id="4-2_参考">4.2 参考</h3><ol>
+<li><a href="http://stackoverflow.com/questions/18875674/whats-the-difference-between-dependencies-devdependencies-and-peerdependencies?rq=1" target="_blank" rel="external">What’s the difference between dependencies, devDependencies and peerDependencies in npm package.json file?</a></li>
+<li><a href="https://docs.npmjs.com/files/package.json" target="_blank" rel="external">npm package.json</a></li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>关于Package.json的一点注意</p>]]>
+    
+    </summary>
+    
+      <category term="总结" scheme="http://tankpt.github.io/tags/%E6%80%BB%E7%BB%93/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Back]]></title>
@@ -939,76 +999,6 @@ object.run();
     </summary>
     
       <category term="感悟" scheme="http://tankpt.github.io/tags/%E6%84%9F%E6%82%9F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[一些关于居中的整理]]></title>
-    <link href="http://tankpt.github.io/2014/09/16/20140916_middle/"/>
-    <id>http://tankpt.github.io/2014/09/16/20140916_middle/</id>
-    <published>2014-09-16T14:42:50.000Z</published>
-    <updated>2015-10-17T13:29:10.868Z</updated>
-    <content type="html"><![CDATA[<p>关于这类居中的问题，貌似各种考的会很多，然后生产实践中也确实会遇到很多，网上随便一搜也能找到很多狠多的例子，这里就简单整理一下自己到现在用过的一些方法，都算是比较简单的然后兼容问题较好的，能大部分解决遇到的问题，但是对于一些极端变态的情况，这里的貌似有些力不从心。<br><a id="more"></a></p>
-<p>##一、水平居中##</p>
-<p>###1. 文字居中###<br>对于一些文字向让他在一个块内居中，最简单的方法就是可以对父元素进行设置</p>
-<pre><code>.center{<span class="type">text</span>-align:center;}
-&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"center"</span>&gt;
-    一些居中的内容
-&lt;/<span class="keyword">div</span>&gt;
-</code></pre><p>###2. 定宽的块居中(父元素宽度未知)###<br>适用于一个有着定宽的块，让他居中，这个情况还是很常见的，比如在切图的时候，要中间设置一个width:960px的块，让他始终都居中，无论浏览器的宽度被拉到多大</p>
-<pre><code>.center{margin:<span class="number">0</span> auto;<span class="variable">width</span>:<span class="number">960</span>px;<span class="built_in">background</span>-<span class="built_in">color</span>:<span class="built_in">red</span>;}
-&lt;div class=<span class="string">"center"</span>&gt;
-    始终居中的块
-&lt;/div&gt;
-</code></pre><p>###3. 定宽的块(父元素的宽度已知)###<br>对于这种情况可以简单粗暴的方法来解决，大致的思路就是既然都知道了让这个块居中时，它的左偏移的距离了，那么用定位（或者内边距）来解决，</p>
-<pre><code>.demo3{width: <span class="number">400</span>px;}
-.demo3 .child{width: <span class="number">100</span>px;margin-left: <span class="number">150</span>px;}
-&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"demo3 red"</span>&gt;
-    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"child blue"</span>&gt;I'm child Block&lt;/<span class="keyword">div</span>&gt;
-&lt;/<span class="keyword">div</span>&gt;
-</code></pre><p>或者是下面的方法</p>
-<pre><code>.child1{position: relative;left: <span class="number">50</span>%;margin-left: -<span class="number">50</span>px;width: <span class="number">100</span>px;}
-&lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"demo3 red"</span>&gt;
-    &lt;<span class="keyword">div</span> <span class="type">class</span>=<span class="string">"child1 blue"</span>&gt;I'm child Block&lt;/<span class="keyword">div</span>&gt;
-&lt;/<span class="keyword">div</span>&gt;
-</code></pre><p>不过这样应用的场景不会很多，毕竟也太如意了</p>
-<p>###4. table的方法###</p>
-<p>关于table的方法，大家在试用表格的时候也看到了，在表格里面的元素可以很简单的居中，所以在display的属性里面也有设置父元素display:table，然后再设置子元素为display:table-cell，不过这种方式考虑到这个兼容性的问题，自己平时没用到，例子就省去了</p>
-<p>下面贴上几个水平的例子效果<br><img src="http://7vzsgl.com1.z0.glb.clouddn.com/blog20140916_middle1.png" alt="水平居中"></p>
-<p>##二、垂直居中##</p>
-<p>###1. line-height只有一行文字###<br>对于有些块，需求需要让他垂直居中，然后比较特殊的是他里面的内容只会在一行里出现，最常见的就是要放置一个按钮的时候了，要让里面的内容简单的居中，针对这类问题最简单的就是设置line-height==父元素的高度</p>
-<pre><code>.demo1{<span class="variable">width</span>: <span class="number">150</span>px;font-<span class="built_in">size</span>: <span class="number">20</span>px;<span class="variable">height</span>: <span class="number">50</span>px;<span class="built_in">line</span>-<span class="variable">height</span>: <span class="number">50</span>px;<span class="built_in">text</span>-align: center;}
-&lt;div class=<span class="string">"demo1 red"</span>&gt;
-    button
-&lt;/div&gt;
-</code></pre><p>这里的原理涉及到行框的形成</p>
-<p>###2. vertain-align＋line-height###<br>这个方法是直接摘录自博客了，里面有两点需要注意</p>
-<ol>
-<li>父元素font-size需要设置为0，这个跟vertain-align:middle的定义有关，可以具体看参考博文１;</li>
-<li>还有一点比较重要的是要对子元素的line-height进行重置，因为line-height会有继承的效果，所以如果不重置，大家可以看看效果</li>
-</ol>
-<pre><code>.outer { <span class="built_in">line</span>-<span class="variable">height</span>: <span class="number">100</span>px; <span class="variable">height</span>: <span class="number">100</span>px; font-<span class="built_in">size</span>: <span class="number">0</span>; }
-.inner { display:inline-block; vertical-align:middle; font-<span class="built_in">size</span>: <span class="number">16</span>px;<span class="variable">height</span>: <span class="number">50</span>px;<span class="variable">width</span>: <span class="number">100</span>%;<span class="built_in">line</span>-<span class="variable">height</span>: <span class="built_in">normal</span>;  }
-&lt;div class=<span class="string">"outer red"</span>&gt;
-    &lt;div class=<span class="string">"inner blue"</span>&gt;child&lt;/div&gt;
-&lt;/div&gt;
-</code></pre><p>###3. 类似水平居中的3(父元素的高度已知)###<br>同上面的３一样只过不过这回修改的top　还有height的属性而已</p>
-<p>###4. 绝对定位外边距为auto可以得到垂直居中###<br>这个方法是在《css权威指南》的时候看到的，大体的思路就是让一个绝对定位的元素eft: 0; top: 0; right: 0; bottom: 0;</p>
-<pre><code>.demo3{<span class="string">position:</span> relative;<span class="string">height:</span> <span class="number">200</span>px;<span class="string">width:</span> <span class="number">400</span>px;}
-.demo3 .child{<span class="string">position:</span> absolute;<span class="string">margin:</span> auto <span class="number">0</span>;<span class="string">width:</span> <span class="number">200</span>px;<span class="string">height:</span> <span class="number">100</span>px;absolute; <span class="string">left:</span> <span class="number">0</span>; <span class="string">top:</span> <span class="number">0</span>; <span class="string">right:</span> <span class="number">0</span>; <span class="string">bottom:</span> <span class="number">0</span>;}
-&lt;div <span class="class"><span class="keyword">class</span>="<span class="title">demo3</span> <span class="title">red</span>"&gt;
-    &lt;<span class="title">div</span> <span class="title">class</span>="<span class="title">child</span> <span class="title">blue</span>"&gt;<span class="title">test</span>&lt;/<span class="title">div</span>&gt;
-&lt;/<span class="title">div</span>&gt;</span>
-</code></pre><p><img src="http://7vzsgl.com1.z0.glb.clouddn.com/blog20140916_middle2.png" alt="水平居中"></p>
-<p>其实还有很多的方法，比如css３上面就有很多，不过自己平时也没怎么使用，所以也就不加了<br>附上<a href="https://gist.github.com/7f624c4d82ccd99c5ccf.git" target="_blank" rel="external">代码gist</a></p>
-<p>参考博文<br><a href="http://blog.segmentfault.com/humphry/1190000000381042" target="_blank" rel="external">整理：子容器垂直居中于父容器的方案</a>　整理的超级不错<br><a href="http://www.qianduan.net/css-to-achieve-the-vertical-center-of-the-five-kinds-of-methods.html" target="_blank" rel="external">CSS实现垂直居中的5种方法</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>关于这类居中的问题，貌似各种考的会很多，然后生产实践中也确实会遇到很多，网上随便一搜也能找到很多狠多的例子，这里就简单整理一下自己到现在用过的一些方法，都算是比较简单的然后兼容问题较好的，能大部分解决遇到的问题，但是对于一些极端变态的情况，这里的貌似有些力不从心。<br>]]>
-    
-    </summary>
-    
-      <category term="css" scheme="http://tankpt.github.io/tags/css/"/>
     
   </entry>
   

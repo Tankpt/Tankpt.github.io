@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Package.json | Tankpt&#39;s blog</title>
+  <meta name="google-site-verification" content="r0NFMdCjEJZ3uwd3eOd-5O2i3hV_IuodGEOlYk1BTAA" />
+  <meta name="keywords" content="tankpt blog github gitpage hexo">
+  <meta name="description" content="tankpt's blog Powered by Hexo">
+  <meta name="author" content="tankpt,tinkpt@hotmail.com ">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="关于Package.json的一点注意">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Package.json">
+<meta property="og:url" content="http://tankpt.github.io/2016/06/09/20160609-packagejson-md/index.html">
+<meta property="og:site_name" content="Tankpt's blog">
+<meta property="og:description" content="关于Package.json的一点注意">
+<meta property="og:updated_time" content="2016-06-09T13:31:35.027Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Package.json">
+<meta name="twitter:description" content="关于Package.json的一点注意">
+  
+    <link rel="alternative" href="/atom.xml" title="Tankpt&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="http://fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Tankpt&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">存档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://tankpt.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-20160609-packagejson-md" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/06/09/20160609-packagejson-md/" class="article-date">
+  <time datetime="2016-06-09T13:26:35.000Z" itemprop="datePublished">2016-06-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Package.json
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>关于Package.json的一点注意</p>
+<a id="more"></a>
+<h2 id="1-_起因">1. 起因</h2><p>现在基本上所有的前端组件代码仓库，无论是打包工具还是组件的依赖包都需要有package.json这个文件，虽然每天在接触的package.json，但是我猜能一口气把常见的配置说出来是个什么鬼的人并不是大部分，所以有机会都可以了解下。</p>
+<p>很多人有时候会很偷懒，在新建一个工程的时候习惯把把前一个工程的的package.json直接拷贝过来，虽然很多时候并没有太大的影响，但这也太随意的。</p>
+<ol>
+<li>很多npm包在使用的时候并不需要，额外包给项目初始化的时候耗费时间(大部分虽然影响只有一次)</li>
+<li>有些组件包package.json错误的使用，会让其他引用它包可能都带来问题</li>
+<li>有些字段类似name、version、publishConfig、homepage、bugs、repository对应那些要上传至npm的包则是需要严格要求的</li>
+<li>组件的依赖关系在package.json中不能在dependencies、devDependencies、peerDependencies随便放</li>
+</ol>
+<h2 id="2-_几个字段的说明">2. 几个字段的说明</h2><h3 id="2-1_version">2.1 version</h3><p>版本号，对于那些发至npm的组件，要非常注意，一般都是使用语义化版本号来命名，</p>
+<h3 id="2-2_scripts">2.2 scripts</h3><p>这里可以定义一些脚本的处理，比如本地启一个server的时候或者是使用一些打包，比如browserify的打包，有些人习惯用gulp或者是grunt来进行打包，但是还有一部分是是用<a href="http://substack.net/task_automation_with_npm_run" target="_blank" rel="external">npm-script进行打包的</a>，这样适合那些对打包的配置想有跟多的掌控，但是代价就是会更复杂</p>
+<p><a href="https://docs.npmjs.com/misc/scripts" target="_blank" rel="external">npm官方关于npm-scripts一些描述</a>，有一点就是除了那些特定的script可以直接npm ** 运行，其他的需要使用npm run ** ，比如我们对仓库代码要进行打包我们定义一个build，他默认会提供俩钩子，分别是pre &amp; post</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#10;&#9;&#34;scripts&#34;:&#123;&#10;&#9;&#9;&#34;prebuild&#34;: &#34;echo &#39;prebuild&#39;&#34;,&#10;    &#9;&#34;build&#34;: &#34;echo &#39;build&#39; &#34;,&#10;    &#9;&#34;postbuild&#34;: &#34;echo &#39;afterbuild&#39; &#34;&#10;&#9;&#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>这样运行npm run build，就会同时跑以上的三个任务</p>
+<h3 id="2-3_main">2.3 main</h3><p>main字段配置一个文件名指向模块的入口程序，比如你的入口文件是放在lib/index.js，有俩种做法，一种是在main中定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#10;&#9;&#34;main&#34; : &#34;lib/index.js&#34;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>方法二则是在根目录下建一个index.js里面则是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">module.exports = require(&#39;lib/index.js&#39;);</span><br></pre></td></tr></table></figure>
+<h3 id="2-4_dependencies、devDependencies、peerDependencies">2.4 dependencies、devDependencies、peerDependencies</h3><h4 id="2-4-1_dependencies">2.4.1 dependencies</h4><p>当前包强依赖的三方包</p>
+<h4 id="2-4-2_devDependencies">2.4.2 devDependencies</h4><p>当前包开发或者测试依赖的三方包</p>
+<p>在本地的开发使用过程中dependencies和devDependencies并没有太大的区别，但是一旦发布到npm包，这就会有差别，作为npm 的包在install的时候不会安装devDependencies的依赖</p>
+<h4 id="2-4-3_peerDependencies">2.4.3 peerDependencies</h4><p>举个列子，当包A和包B同时依赖了模块C，而且比较悲剧的事情俩C的版本却不一样，无论是npm3还是npm2都是会将俩版本的模块C都安装，这个时候可以在peerDependencies指定模块c的版本</p>
+<p><strong>注：在npm3版本之前定义在peerDependencies也会自动安装，但是在npm3中则不会，他仅仅只是有一个提示</strong></p>
+<h2 id="3-_使用中注意的几点">3. 使用中注意的几点</h2><h3 id="3-1_react及react-dom">3.1 react及react-dom</h3><p>关于react以及react-dom在package.json中，应该如何放置呢？</p>
+<h4 id="3-1-1_从含义上来说">3.1.1 从含义上来说</h4><p>对应某个组件，react及react-dom确实是一个组件实际依赖的部分，按照这个逻辑是应该放到dependencies应该是更为合理，但是问题来了，如果包内外依赖的组件版本不一致的时候，会同时引入两份react，这个浏览器端会报错，，而且react本事并不小。虽然这个问题可以通过webpack中配置来解决，最终在页面中引入一份js即可，但是这样的话需要所有用你组件的同学用这样的打包方式，不太合适</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#10; &#9;externals: &#123;&#10;        &#34;react&#34;: &#34;React&#34;,&#10;        &#34;react-dom&#34;: &#34;ReactDOM&#34;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-1-2_使用中">3.1.2 使用中</h4><p>当初@何道同学提起了这个问题，我于是去喵了喵现在的组件包中对react及react-dom的引用。</p>
+<ol>
+<li>比如<a href="https://github.com/react-component/slider" target="_blank" rel="external">react-component/slider</a>的使用方式则是使用了devDependencies，尴尬的问题就是如果我外面没有引用react，在npm安装的时候并不会安装，（虽然在使用的场景中，外部引用组件的仓库肯定会用引用react），略尴尬</li>
+<li>比如<a href="https://github.com/reactjs/react-redux" target="_blank" rel="external">reactjs/react-redux</a>，他的使用方式是在peerDependencies中定义了react及react-dom的引用，其实这个是个人觉得更加合理的方式，但是很不幸的问题是在npm3之前这个是完全没问题的，而在npm3中则不会自动安装，只是一个提示，在本地开发有点尴尬</li>
+</ol>
+<p>纠结了很久，后来看到了<a href="http://stackoverflow.com/questions/30451556/what-is-the-correct-way-of-adding-a-dependency-to-react-in-your-package-json-for" target="_blank" rel="external">这个文章</a>，嗯脑补了下确实如此，感觉比较合理的方式是将react及react-dom的依赖同时定义在devDependencies、peerDependencies，这样貌似看起来本地开发，包发布俩不误，注意在peerDependencies中可以将依赖的组件版本定的更为宽泛点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#10;&#9;&#34;peerDependencies&#34;: &#123;&#10;    &#9;&#34;react&#34;: &#34;^0.14.0 || ^15.0.0&#34;,&#10;    &#9;&#34;react-dom&#34;: &#34;^0.14.0 || ^15.0.0&#34;&#10;  &#9;&#125;,&#10;  &#9;&#34;devDependencies&#34;: &#123;&#10;    &#9;&#34;react&#34;: &#34;^0.14.0&#34;,&#10;    &#9;&#34;react-dom&#34;: &#34;^0.14.0&#34;&#10;  &#9;&#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-2_版本号">3.2 版本号</h3><p>一般不太建议将版本号写的太死，也不能太随性，关于～和^差别不一样，要注意区分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#34;async&#34;: &#34;~0.9.0&#34;,&#10;&#34;async&#34;: &#34;^0.9.0&#34;</span><br></pre></td></tr></table></figure>
+<h2 id="4-_其他">4. 其他</h2><h3 id="4-1_npm2_vs_npm3">4.1 npm2 vs npm3</h3><ol>
+<li>安装速度：npm3安装速度完虐npm2，一般安装npm3还是比较安静的，但是安装一个npm2基本上pro可以烧开一壶水了</li>
+<li>npm3在安装的时候会将你的所有依赖的一样的版本号的包进行抽离出来，打平到最外层，这个感觉对提示效率还是蛮明显的，但是想想对于一个包来说，更加对的方式应该还是安装到相应的组件包的folder下面，这样的做法有一个就是，有时候不小心require一个模块，但是package.json中没有定义，在npm3中还是会正常工作，因为有可能那个模块被他引的模块给引入，因为npm3的包打平放到了最外层</li>
+</ol>
+<h3 id="4-2_参考">4.2 参考</h3><ol>
+<li><a href="http://stackoverflow.com/questions/18875674/whats-the-difference-between-dependencies-devdependencies-and-peerdependencies?rq=1" target="_blank" rel="external">What’s the difference between dependencies, devDependencies and peerDependencies in npm package.json file?</a></li>
+<li><a href="https://docs.npmjs.com/files/package.json" target="_blank" rel="external">npm package.json</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+       
+      <a data-url="http://tankpt.github.io/2016/06/09/20160609-packagejson-md/" data-id="cip8cf7xd0003oyjg7xnljxcf" class="article-share-link"></a>
+        <div class="bdsharebuttonbox" style="float:right">
+          <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+          <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+          <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+          <a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a>
+        </div>
+        <script>
+          window._bd_share_config={
+            "common":{
+              "bdSnsKey":{},
+              "bdText":"",
+              "bdMini":"1",
+              "bdMiniList":["tsina","weixin","douban","sqq","youdao","mail","fbook","twi"],
+              "bdPic":"",
+              "bdStyle":"0",
+              "bdSize":"16"
+            },
+            "share":{}
+          };
+          with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+
+        </script>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/总结/">总结</a></li></ul>
+
+    </footer>
+  </div>
+  
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/04/03/20160403-sum/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Back</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="post-20160609-packagejson-md" data-title="Package.json" data-url="/2016/06/09/20160609-packagejson-md/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"tankpt"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+    </script>
+  <!-- 多说公共JS代码 end -->
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mobile/">mobile</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端资源/">前端资源</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/总结/">总结</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感悟/">感悟</a><span class="tag-list-count">9</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/css/" style="font-size: 12.5px;">css</a> <a href="/tags/js/" style="font-size: 15px;">js</a> <a href="/tags/mobile/" style="font-size: 10px;">mobile</a> <a href="/tags/前端资源/" style="font-size: 10px;">前端资源</a> <a href="/tags/性能/" style="font-size: 10px;">性能</a> <a href="/tags/总结/" style="font-size: 20px;">总结</a> <a href="/tags/感悟/" style="font-size: 17.5px;">感悟</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">九月 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/06/09/20160609-packagejson-md/">Package.json</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/03/20160403-sum/">Back</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/17/20151017-sum/">新的起点</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/13/20150713-performance/">前端性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/25/20150625_graduate/">致我将要逝去的学生时代</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+  <div class="widget-wrap">
+  	<h3 class="widget-title">我的豆瓣FM秀</h3>
+  	<div style="margin-left:15px;"><script src="http://img3.douban.com/f/shire/b5b388ff620cf7006188492cc075a423519ba257/js/radiowidget.js?doubanid=46888103&maxresults=3"></script>
+  	</div>
+  </div>
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Tankpt<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">存档</a>
+  
+</nav>
+    
+
+<script src="//upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.3.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+  </div>
+</body>
+</html>
